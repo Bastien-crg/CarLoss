@@ -1,2 +1,0 @@
-# CarLoss
-Jeu de course
