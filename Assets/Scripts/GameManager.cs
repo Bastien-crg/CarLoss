@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetScore(int newScore)
     {
         m_Score = newScore;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_CountDown }); 
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos }); 
     }
     int IncrementScore(int increment)
     {
@@ -26,18 +26,17 @@ public class GameManager : MonoBehaviour, IEventHandler
         return m_Score;
     }
 
-    float m_CountDown;
-    [SerializeField] float m_GameDuration;
-    void SetCountdown(float newCountdown)
+    float m_Chronos;
+    void SetChronos(float newCountdown)
     {
-        m_CountDown = newCountdown;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_CountDown });
+        m_Chronos = newCountdown;
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos });
     }
 
-    float DecrementCountdown(float decrement)
+    float IncrementCountdown(float increment)
     {
-        SetCountdown(Mathf.Max(0, m_CountDown - decrement));
-        return m_CountDown;
+        SetChronos(m_Chronos + increment);
+        return m_Chronos;
     }
 
     public void SubscribeEvents()
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void Start()
     {
         SetScore(0);
-        SetCountdown(0);
+        SetChronos(0);
         MainMenu();
     }
 
@@ -82,8 +81,8 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         if(IsPlaying)
         {
-            if (DecrementCountdown(Time.deltaTime) == 0)
-                GameOver();
+            IncrementCountdown(Time.deltaTime);
+                
         }
     }
 
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void InitGame()
     {
         SetScore(0);
-        SetCountdown(m_GameDuration);
+        SetChronos(0);
     }
 
     void Play()

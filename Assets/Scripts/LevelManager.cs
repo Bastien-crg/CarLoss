@@ -9,6 +9,9 @@ public class LevelManager : MonoBehaviour,IEventHandler
 {
     List<Cube> m_Cubes;
 
+    [SerializeField] GameObject m_PlayerPrefab;
+    [SerializeField] Transform m_PlayerSpawnPos;
+
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
@@ -38,6 +41,11 @@ public class LevelManager : MonoBehaviour,IEventHandler
     // Start is called before the first frame update
     void Start()
     {
+
+        GameObject playerGO = Instantiate(m_PlayerPrefab);
+        playerGO.transform.position = m_PlayerSpawnPos.position;
+        
+        
         m_Cubes = GameObject.FindObjectsOfType<Cube>().ToList();
     }
 
