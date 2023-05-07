@@ -50,6 +50,14 @@ public class NextLevelButtonClickedEvent : SDD.Events.Event
 }
 #endregion
 
+#region Player Event
+
+public class EmitPositionEvent : SDD.Events.Event
+{
+	public Vector3 position;
+}
+
+#endregion
 
 #region Enemy Event
 public class EnemyHasBeenHitEvent: SDD.Events.Event

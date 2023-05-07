@@ -16,10 +16,25 @@ public class Player : MonoBehaviour,IEventHandler
     [SerializeField] float m_BallLifeTime;
     float m_TimeNextShot;
 
+    Animator animator;
+
     Rigidbody m_Rigidbody;
 
     Vector3 m_InitPosition;
     Quaternion m_InitOrientation;
+
+    private float hInput;
+    private float vInput;
+
+    private Vector3 moveDirection;
+
+    // ground
+    public float playerHeight;
+    public LayerMask GroundMask;
+    bool isOnTheGrounded;
+    public float groundDrag;
+
+
 
     void InitPositionAndOrientation()
     {
@@ -27,6 +42,18 @@ public class Player : MonoBehaviour,IEventHandler
         transform.rotation = m_InitOrientation;
         m_Rigidbody.velocity = Vector3.zero;
         m_Rigidbody.angularVelocity = Vector3.zero;
+    }
+
+    void Start()
+    {
+        // Cursor.lockState = CursorLockMode.Locked;
+        animator = GetComponent<Animator>();
+    }
+
+    private void GetInput()
+    {
+        hInput = Input.GetAxisRaw("Horizontal");
+        vInput = Input.GetAxisRaw("Vertical");
     }
 
 
@@ -71,6 +98,21 @@ public class Player : MonoBehaviour,IEventHandler
     // Update is called once per frame
     void Update()
     {
+        EventManager.Instance.Raise(new EmitPositionEvent() { position = transform.position });
+        GetInput();
+
+
+        // ground check
+        isOnTheGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, GroundMask);
+        if (isOnTheGrounded)
+        {
+            m_Rigidbody.drag = groundDrag;
+        } else
+        {
+            m_Rigidbody.drag = 0;
+        }
+        SpeedControl();
+
         // COMPORTEMENT CINEMATIQUE
         /*
         float hInput = Input.GetAxis("Horizontal");
@@ -84,15 +126,32 @@ public class Player : MonoBehaviour,IEventHandler
         */
     }
 
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(m_Rigidbody.velocity.x, 0f, m_Rigidbody.velocity.z);
+        if (flatVel.magnitude > m_TranslationSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * m_TranslationSpeed;
+            m_Rigidbody.velocity = new Vector3(limitedVel.x, m_Rigidbody.velocity.y, limitedVel.z);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!GameManager.Instance.IsPlaying) return; // HACK
                                                     // je n'utilise pas l'architecture événementielle car je suis flemmard
 
-
-        // Comportements dynamiques
-        float hInput = Input.GetAxis("Horizontal");
-        float vInput = Input.GetAxis("Vertical");
+        
+        if (hInput != 0 || vInput != 0)
+        {
+            //Debug.Log(animator);
+            animator.SetBool("isRunning", true);
+        } else
+        {
+            animator.SetBool("isRunning", false);
+        }
+        moveDirection = transform.forward * vInput + transform.right * hInput;
+        m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
 
         #region POSITIONAL
         // Mode positionnel (téléportation)
@@ -121,7 +180,7 @@ public class Player : MonoBehaviour,IEventHandler
         #endregion
 
         // MODE VELOCITY
-        Vector3 targetVelocity = vInput*transform.forward * m_TranslationSpeed;
+        /*Vector3 targetVelocity = vInput*transform.forward * + transform.;
         Vector3 deltaVelocity = targetVelocity - m_Rigidbody.velocity;
         m_Rigidbody.AddForce(deltaVelocity, ForceMode.VelocityChange);
 
@@ -135,7 +194,7 @@ public class Player : MonoBehaviour,IEventHandler
                         qUprightRot * transform.rotation,
                         Time.fixedDeltaTime * 8);
 
-        m_Rigidbody.MoveRotation(qUprightOrient);
+        m_Rigidbody.MoveRotation(qUprightOrient);*/
 
         //
 
@@ -152,6 +211,6 @@ public class Player : MonoBehaviour,IEventHandler
     // GameManager events' callbacks
     void GamePlay(GamePlayEvent e)
     {
-        InitPositionAndOrientation();
+        //InitPositionAndOrientation();
     }
 }

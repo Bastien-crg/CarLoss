@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         if(IsPlaying)
         {
             IncrementCountdown(Time.deltaTime);
-                
+     
         }
     }
 

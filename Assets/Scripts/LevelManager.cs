@@ -41,11 +41,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
     // Start is called before the first frame update
     void Start()
     {
-
-        GameObject playerGO = Instantiate(m_PlayerPrefab);
-        playerGO.transform.position = m_PlayerSpawnPos.position;
-        
-        
         m_Cubes = GameObject.FindObjectsOfType<Cube>().ToList();
     }
 
@@ -59,6 +54,12 @@ public class LevelManager : MonoBehaviour,IEventHandler
         m_Cubes.ForEach(item => item.gameObject.SetActive(true));
     }
 
+    void PlayerSpawning()
+    {
+        /*GameObject playerGO = Instantiate(m_PlayerPrefab);
+        playerGO.transform.position = m_PlayerSpawnPos.position;*/
+    }
+
     // GameManager events' callbacks
     void GameMenu(GameMenuEvent e)
     {
@@ -69,6 +70,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         CleanBalls();
         ActivateCubes();
+        PlayerSpawning();
     }
 
     void GameVictory(GameVictoryEvent e)
@@ -86,6 +88,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         IDestroyable destroyable = e.eEnemy.GetComponent<IDestroyable>();
         if (null != destroyable)
-            destroyable.Kill();
+            destroyable.Damage();
     }
 }
