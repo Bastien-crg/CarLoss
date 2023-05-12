@@ -16,7 +16,7 @@ public class Player : MonoBehaviour,IEventHandler
     [SerializeField] float m_BallLifeTime;
     float m_TimeNextShot;
 
-    Animator animator;
+    //Animator animator;
 
     Rigidbody m_Rigidbody;
 
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour,IEventHandler
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void GetInput()
@@ -145,10 +145,10 @@ public class Player : MonoBehaviour,IEventHandler
         if (hInput != 0 || vInput != 0)
         {
             //Debug.Log(animator);
-            animator.SetBool("isRunning", true);
+            //animator.SetBool("isRunning", true);
         } else
         {
-            animator.SetBool("isRunning", false);
+            //animator.SetBool("isRunning", false);
         }
         moveDirection = transform.forward * vInput + transform.right * hInput;
         m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
