@@ -209,7 +209,6 @@ public class Player : MonoBehaviour,IEventHandler
         if(isFiring && Time.time>m_TimeNextShot)
         {
             Destroy(ShootBall(),m_BallLifeTime);
-
             m_TimeNextShot = Time.time + m_ShootingPeriod;
         }
 
