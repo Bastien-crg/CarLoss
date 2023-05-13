@@ -53,6 +53,7 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
     {
         GameObject newEnemyGO = Instantiate(m_EnemyPrefab);
         newEnemyGO.transform.position = m_SpawnerSpawnPos.position;
+        Debug.Log(newEnemyGO.transform.position);
         return newEnemyGO;
     }
 
