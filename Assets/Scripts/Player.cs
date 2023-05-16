@@ -14,9 +14,10 @@ public class Player : MonoBehaviour,IEventHandler
 
     [SerializeField] float m_ShootingPeriod;
     [SerializeField] float m_BallLifeTime;
+    public int life;
     float m_TimeNextShot;
 
-    Animator animator;
+    //Animator animator;
 
     Rigidbody m_Rigidbody;
 
@@ -34,6 +35,12 @@ public class Player : MonoBehaviour,IEventHandler
     bool isOnTheGrounded;
     public float groundDrag;
 
+    // jump
+    public float jumpForce;
+    public float jumpCooldown;
+    bool readyToJump = true;
+    public KeyCode jumpKey = KeyCode.Space;
+
 
 
     void InitPositionAndOrientation()
@@ -47,13 +54,19 @@ public class Player : MonoBehaviour,IEventHandler
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void GetInput()
     {
         hInput = Input.GetAxisRaw("Horizontal");
         vInput = Input.GetAxisRaw("Vertical");
+        if (Input.GetKey(jumpKey) && readyToJump && isOnTheGrounded)
+        {
+            readyToJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
     }
 
 
@@ -141,16 +154,10 @@ public class Player : MonoBehaviour,IEventHandler
         if (!GameManager.Instance.IsPlaying) return; // HACK
                                                     // je n'utilise pas l'architecture événementielle car je suis flemmard
 
-        
-        if (hInput != 0 || vInput != 0)
+        if (isOnTheGrounded)
         {
-            //Debug.Log(animator);
-            animator.SetBool("isRunning", true);
-        } else
-        {
-            animator.SetBool("isRunning", false);
+            moveDirection = transform.forward * vInput + transform.right * hInput;
         }
-        moveDirection = transform.forward * vInput + transform.right * hInput;
         m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
 
         #region POSITIONAL
@@ -202,7 +209,6 @@ public class Player : MonoBehaviour,IEventHandler
         if(isFiring && Time.time>m_TimeNextShot)
         {
             Destroy(ShootBall(),m_BallLifeTime);
-
             m_TimeNextShot = Time.time + m_ShootingPeriod;
         }
 
@@ -212,5 +218,18 @@ public class Player : MonoBehaviour,IEventHandler
     void GamePlay(GamePlayEvent e)
     {
         //InitPositionAndOrientation();
+    }
+
+    private void Jump()
+    {
+        // reset y velocity
+        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 0, m_Rigidbody.velocity.z);
+
+        m_Rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ResetJump()
+    {
+        readyToJump = true;
     }
 }
