@@ -98,6 +98,8 @@ public class LevelManager : MonoBehaviour,IEventHandler
 
     void PotionTrigger(PotionTriggerEvent e)
     {
+        Debug.Log(player.life);
         player.life = 5;
+        Debug.Log(player.life);
     }
 }

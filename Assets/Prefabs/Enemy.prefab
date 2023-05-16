@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6211508169905257734}
-  player: {fileID: 1111025973889094046, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
+  player_position: {x: 0, y: 0, z: 0}
 --- !u!136 &1220611179040289508
 CapsuleCollider:
   m_ObjectHideFlags: 0
