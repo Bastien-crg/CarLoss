@@ -59,6 +59,13 @@ public class EmitPositionEvent : SDD.Events.Event
 
 #endregion
 
+
+#region Bonus
+public class PotionTriggerEvent : SDD.Events.Event
+{
+
+}
+#endregion
 #region Enemy Event
 public class EnemyHasBeenHitEvent: SDD.Events.Event
 {

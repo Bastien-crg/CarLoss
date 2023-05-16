@@ -8,6 +8,7 @@ using System.Linq;
 public class LevelManager : MonoBehaviour,IEventHandler
 {
     List<Cube> m_Cubes;
+    public Player player;
 
     [SerializeField] GameObject m_PlayerPrefab;
     [SerializeField] Transform m_PlayerSpawnPos;
@@ -19,6 +20,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+        EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
     }
 
     public void UnsubscribeEvents()
@@ -28,7 +30,10 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
+        EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
     }
+
+   
 
     void OnEnable()
     {
@@ -89,5 +94,10 @@ public class LevelManager : MonoBehaviour,IEventHandler
         IDestroyable destroyable = e.eEnemy.GetComponent<IDestroyable>();
         if (null != destroyable)
             destroyable.Damage();
+    }
+
+    void PotionTrigger(PotionTriggerEvent e)
+    {
+        player.life = 5;
     }
 }

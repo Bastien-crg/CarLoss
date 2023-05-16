@@ -14,6 +14,7 @@ public class Player : MonoBehaviour,IEventHandler
 
     [SerializeField] float m_ShootingPeriod;
     [SerializeField] float m_BallLifeTime;
+    public int life;
     float m_TimeNextShot;
 
     //Animator animator;
