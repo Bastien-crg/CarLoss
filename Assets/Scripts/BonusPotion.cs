@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusTest : MonoBehaviour,IDestroyable
+public class BonusPotion : MonoBehaviour,IDestroyable
 {
     private void OnTriggerEnter(Collider other)
     {
