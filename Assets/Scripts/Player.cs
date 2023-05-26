@@ -1,12 +1,13 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
-
+using System;
 public class Player : MonoBehaviour,IEventHandler
 {
     [SerializeField] float m_TranslationSpeed;
     [SerializeField] float m_RotationSpeed;
+    [SerializeField] float m_MultiplicatorMvtInAir;
 
     [SerializeField] GameObject m_BallPrefab;
     [SerializeField] Transform m_BallSpawnPos;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour,IEventHandler
     public int life;
     float m_TimeNextShot;
 
+    [SerializeField] float m_Fluel;
     //Animator animator;
 
     Rigidbody m_Rigidbody;
@@ -157,8 +159,15 @@ public class Player : MonoBehaviour,IEventHandler
         if (isOnTheGrounded)
         {
             moveDirection = transform.forward * vInput + transform.right * hInput;
+            m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
         }
-        m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
+        else
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput ;
+            Debug.Log(moveDirection);
+            m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * m_MultiplicatorMvtInAir, ForceMode.Force);
+        }
+        
 
         #region POSITIONAL
         // Mode positionnel (téléportation)

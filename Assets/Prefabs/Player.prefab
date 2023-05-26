@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1111025973889094047}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,21 +49,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8dc84a004a4445ba1de96c52b1b7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TranslationSpeed: 6
+  m_TranslationSpeed: 3.5
   m_RotationSpeed: 180
+  m_MultiplicatorMvtInAir: 0.6
   m_BallPrefab: {fileID: 5476393340010740191, guid: 6f1a062db1f44448b849de58eb10ae3a, type: 3}
   m_BallSpawnPos: {fileID: 1111025974219010221}
   m_BallInitSpeed: 20
   m_ShootingPeriod: 0.25
   m_BallLifeTime: 3
-  life: 0
+  life: 2
+  m_Fluel: 0
   playerHeight: 2
   GroundMask:
     serializedVersion: 2
     m_Bits: 256
   groundDrag: 5
-  jumpForce: 0
-  jumpCooldown: 0
+  jumpForce: 4
+  jumpCooldown: 0.25
   jumpKey: 32
 --- !u!136 &1111025973889094040
 CapsuleCollider:
@@ -119,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111025974219010220}
   m_LocalRotation: {x: -0.10501391, y: -0.000000059604645, z: 0.000000007450581, w: 0.99447083}
-  m_LocalPosition: {x: -0, y: 1.24, z: 0.921}
+  m_LocalPosition: {x: 0, y: 0.26, z: 0.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
