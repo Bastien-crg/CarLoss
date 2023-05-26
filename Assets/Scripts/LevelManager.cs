@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
         EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
+        EventManager.Instance.AddListener<JetPackTriggerEvent>(JetPackTrigger);
     }
 
     public void UnsubscribeEvents()
@@ -31,6 +32,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
         EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
+        EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
     }
 
    
@@ -98,8 +100,11 @@ public class LevelManager : MonoBehaviour,IEventHandler
 
     void PotionTrigger(PotionTriggerEvent e)
     {
-        Debug.Log(player.life);
-        player.life = 5;
-        Debug.Log(player.life);
+        player.m_life = 5;
+    }
+
+    void JetPackTrigger(JetPackTriggerEvent e)
+    {
+        player.m_Fluel = 100;
     }
 }

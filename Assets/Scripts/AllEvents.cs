@@ -65,7 +65,14 @@ public class PotionTriggerEvent : SDD.Events.Event
 {
 
 }
+
+public class JetPackTriggerEvent : SDD.Events.Event
+{
+
+}
+
 #endregion
+
 #region Enemy Event
 public class EnemyHasBeenHitEvent: SDD.Events.Event
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
 using System;
+
 public class Player : MonoBehaviour,IEventHandler
 {
     [SerializeField] float m_TranslationSpeed;
@@ -15,10 +16,10 @@ public class Player : MonoBehaviour,IEventHandler
 
     [SerializeField] float m_ShootingPeriod;
     [SerializeField] float m_BallLifeTime;
-    public int life;
+    public int m_life;
     float m_TimeNextShot;
 
-    [SerializeField] float m_Fluel;
+    public float m_Fluel;
     //Animator animator;
 
     Rigidbody m_Rigidbody;
@@ -161,10 +162,18 @@ public class Player : MonoBehaviour,IEventHandler
             moveDirection = transform.forward * vInput + transform.right * hInput;
             m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
         }
+        if(!isOnTheGrounded && m_Fluel > 0 && Input.GetKey(jumpKey))
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput;
+            Debug.Log(moveDirection);
+            m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 0, m_Rigidbody.velocity.z);
+            m_Rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
+            m_Fluel -= 1.5f;
+        }
         else
         {
             moveDirection = transform.forward * vInput + transform.right * hInput ;
-            Debug.Log(moveDirection);
             m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * m_MultiplicatorMvtInAir, ForceMode.Force);
         }
         

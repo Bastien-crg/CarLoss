@@ -61675,31 +61675,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: life
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: jumpForce
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: jumpCooldown
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: airMultiplier
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: m_TranslationSpeed
-      value: 3.5
+      propertyPath: m_Fluel
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094043, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025973889094043, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094046, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
@@ -61745,18 +61725,6 @@ PrefabInstance:
     - target: {fileID: 1111025973889094046, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025974219010221, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025974219010221, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111025974219010221, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.34
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
@@ -122395,7 +122363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1083961019314384639, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2745225824979171812, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
       propertyPath: m_RootOrder
