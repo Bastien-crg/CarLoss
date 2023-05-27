@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetScore(int newScore)
     {
         m_Score = newScore;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos }); 
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel }); 
     }
     int IncrementScore(int increment)
     {
@@ -30,14 +30,22 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetChronos(float newCountdown)
     {
         m_Chronos = newCountdown;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos });
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
     }
 
-    float IncrementCountdown(float increment)
+    float IncrementChronos(float increment)
     {
         SetChronos(m_Chronos + increment);
         return m_Chronos;
     }
+
+    int m_JetpackFuel;
+    void SetJetpackFuel(int fuel)
+    {
+        m_JetpackFuel = fuel;
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
+    }
+    
 
     public void SubscribeEvents()
     {
@@ -45,6 +53,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        EventManager.Instance.AddListener<JetpackHasBeenUsedEvent>(JetpackHasBeenUsed);
     }
 
     public void UnsubscribeEvents()
@@ -53,6 +62,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.RemoveListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        EventManager.Instance.RemoveListener<JetpackHasBeenUsedEvent>(JetpackHasBeenUsed);
     }
 
     void OnEnable()
@@ -74,6 +84,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
+        SetJetpackFuel(100);
         MainMenu();
     }
 
@@ -81,7 +92,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         if(IsPlaying)
         {
-            IncrementCountdown(Time.deltaTime);
+            IncrementChronos(Time.deltaTime);
      
         }
     }
@@ -117,6 +128,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
+        SetJetpackFuel(100);
     }
 
     void Play()
@@ -156,6 +168,11 @@ public class GameManager : MonoBehaviour, IEventHandler
         IScore score = e.eEnemy.GetComponent<IScore>();
         if (null != score && IncrementScore(score.Score) >= m_ScoreToVictory)
             Victory();
+    }
+
+    void JetpackHasBeenUsed(JetpackHasBeenUsedEvent e)
+    {
+        SetJetpackFuel(e.eLeftFuel);
     }
 
 }

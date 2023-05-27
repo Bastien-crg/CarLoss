@@ -26,6 +26,7 @@ public class GameStatisticsChangedEvent : SDD.Events.Event
 {
 	public int eScore { get; set; }
 	public float eCountDown { get; set; }
+	public int eFuel { get; set; }
 }
 #endregion
 
@@ -69,6 +70,11 @@ public class PotionTriggerEvent : SDD.Events.Event
 public class JetPackTriggerEvent : SDD.Events.Event
 {
 
+}
+
+public class JetpackHasBeenUsedEvent : SDD.Events.Event
+{
+	public int eLeftFuel { get; set; }
 }
 
 #endregion

@@ -21,7 +21,7 @@ public class Player : MonoBehaviour,IEventHandler
     public int m_life;
     float m_TimeNextShot;
 
-    public float m_Fluel;
+    public int m_Fluel;
     //Animator animator;
 
     Rigidbody m_Rigidbody;
@@ -166,7 +166,9 @@ public class Player : MonoBehaviour,IEventHandler
         else if (!isOnTheGrounded && m_Fluel > 0 && Input.GetKey(jumpKey))
         {
             moveDirection = transform.forward * vInput + transform.right * hInput;
-            Jump();
+            Jump(); 
+            m_Fluel -= 1;
+            EventManager.Instance.Raise(new JetpackHasBeenUsedEvent() { eLeftFuel = m_Fluel });
         }
         m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
 
