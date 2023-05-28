@@ -57,6 +57,11 @@ public class EmitPositionEvent : SDD.Events.Event
 	public Vector3 position;
 }
 
+public class PlayerHasBeenHitEvent : SDD.Events.Event
+{
+    public Player ePlayer;
+}
+
 #endregion
 
 
