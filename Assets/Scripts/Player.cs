@@ -1,12 +1,16 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
+using System;
 
 public class Player : MonoBehaviour,IEventHandler
 {
-    [SerializeField] float m_TranslationSpeed;
+    [SerializeField] float m_WalkingSpeed;
+    [SerializeField] float m_SprintSpeed;
+
     [SerializeField] float m_RotationSpeed;
+    [SerializeField] float m_MultiplicatorMvtInAir;
 
     [SerializeField] GameObject m_BallPrefab;
     [SerializeField] Transform m_BallSpawnPos;
@@ -14,9 +18,10 @@ public class Player : MonoBehaviour,IEventHandler
 
     [SerializeField] float m_ShootingPeriod;
     [SerializeField] float m_BallLifeTime;
-    public int life;
+    public int m_life;
     float m_TimeNextShot;
 
+    public int m_Fluel;
     //Animator animator;
 
     Rigidbody m_Rigidbody;
@@ -28,6 +33,7 @@ public class Player : MonoBehaviour,IEventHandler
     private float vInput;
 
     private Vector3 moveDirection;
+    public Transform cameraOrientation;
 
     // ground
     public float playerHeight;
@@ -41,7 +47,9 @@ public class Player : MonoBehaviour,IEventHandler
     bool readyToJump = true;
     public KeyCode jumpKey = KeyCode.Space;
 
-
+    // sprint
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    float TranslationSpeed;
 
     void InitPositionAndOrientation()
     {
@@ -54,7 +62,6 @@ public class Player : MonoBehaviour,IEventHandler
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked;
-        //animator = GetComponent<Animator>();
     }
 
     private void GetInput()
@@ -66,6 +73,15 @@ public class Player : MonoBehaviour,IEventHandler
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        if (Input.GetKey(sprintKey) && isOnTheGrounded)
+        {
+            TranslationSpeed = m_SprintSpeed;
+        }
+        else if (isOnTheGrounded)
+        {
+            TranslationSpeed = m_WalkingSpeed;
         }
     }
 
@@ -103,6 +119,7 @@ public class Player : MonoBehaviour,IEventHandler
     {
         GameObject newBallGO = Instantiate(m_BallPrefab);
         newBallGO.transform.position = m_BallSpawnPos.position;
+        newBallGO.transform.rotation = cameraOrientation.rotation;
         newBallGO.GetComponent<Rigidbody>().velocity =
                      m_BallSpawnPos.forward * m_BallInitSpeed;
         return newBallGO;
@@ -125,26 +142,14 @@ public class Player : MonoBehaviour,IEventHandler
             m_Rigidbody.drag = 0;
         }
         SpeedControl();
-
-        // COMPORTEMENT CINEMATIQUE
-        /*
-        float hInput = Input.GetAxis("Horizontal");
-        float vInput = Input.GetAxis("Vertical");
-
-        Vector3 vect = vInput* new Vector3(0, 0, 1) * m_TranslationSpeed * Time.deltaTime;
-        transform.Translate(vect, Space.Self);
-
-        float deltaAngle = hInput * m_RotationSpeed * Time.deltaTime;
-        transform.Rotate(Vector3.up, deltaAngle, Space.Self);
-        */
     }
 
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(m_Rigidbody.velocity.x, 0f, m_Rigidbody.velocity.z);
-        if (flatVel.magnitude > m_TranslationSpeed)
+        if (flatVel.magnitude > TranslationSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * m_TranslationSpeed;
+            Vector3 limitedVel = flatVel.normalized * TranslationSpeed;
             m_Rigidbody.velocity = new Vector3(limitedVel.x, m_Rigidbody.velocity.y, limitedVel.z);
         }
     }
@@ -152,58 +157,42 @@ public class Player : MonoBehaviour,IEventHandler
     private void FixedUpdate()
     {
         if (!GameManager.Instance.IsPlaying) return; // HACK
-                                                    // je n'utilise pas l'architecture événementielle car je suis flemmard
+                                                     // je n'utilise pas l'architecture événementielle car je suis flemmard
 
         if (isOnTheGrounded)
         {
             moveDirection = transform.forward * vInput + transform.right * hInput;
         }
-        m_Rigidbody.AddForce(moveDirection.normalized * m_TranslationSpeed * 10f, ForceMode.Force);
-
-        #region POSITIONAL
-        // Mode positionnel (téléportation)
-        //translation
-        /*
-        Vector3 vect = vInput * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
-        m_Rigidbody.MovePosition(transform.position + vect);
-
-        //rotation
-        float deltaAngle = hInput * m_RotationSpeed * Time.fixedDeltaTime;
-        Quaternion qRot = Quaternion.AngleAxis(deltaAngle, transform.up);
-
-        Quaternion qUprightRot = Quaternion.FromToRotation(transform.up, Vector3.up);
-        Quaternion qUprightOrient = Quaternion.Slerp(
-                        transform.rotation,
-                        qUprightRot*transform.rotation,
-                        Time.fixedDeltaTime*8);
+        else if (!isOnTheGrounded && m_Fluel > 0 && Input.GetKey(jumpKey))
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput;
+            Jump(); 
+            m_Fluel -= 1;
+            EventManager.Instance.Raise(new JetpackHasBeenUsedEvent() { eLeftFuel = m_Fluel });
+        }
+        m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
 
 
-        Quaternion qNewOrient = qRot * qUprightOrient;
-        m_Rigidbody.MoveRotation(qNewOrient);
 
-        m_Rigidbody.AddForce(- m_Rigidbody.velocity, ForceMode.VelocityChange);
-        m_Rigidbody.AddTorque(- m_Rigidbody.angularVelocity, ForceMode.VelocityChange);
-        */
-        #endregion
-
-        // MODE VELOCITY
-        /*Vector3 targetVelocity = vInput*transform.forward * + transform.;
-        Vector3 deltaVelocity = targetVelocity - m_Rigidbody.velocity;
-        m_Rigidbody.AddForce(deltaVelocity, ForceMode.VelocityChange);
-
-        Vector3 targetAngularVelocity = hInput * transform.up * m_RotationSpeed*Mathf.Deg2Rad;
-        Vector3 deltaAngVel = targetAngularVelocity - m_Rigidbody.angularVelocity;
-        m_Rigidbody.AddTorque(deltaAngVel, ForceMode.VelocityChange);
-
-        Quaternion qUprightRot = Quaternion.FromToRotation(transform.up, Vector3.up);
-        Quaternion qUprightOrient = Quaternion.Slerp(
-                        transform.rotation,
-                        qUprightRot * transform.rotation,
-                        Time.fixedDeltaTime * 8);
-
-        m_Rigidbody.MoveRotation(qUprightOrient);*/
-
-        //
+        /*if (isOnTheGrounded)
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput;
+            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
+        }
+        if(!isOnTheGrounded && m_Fluel > 0 && Input.GetKey(jumpKey))
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput;
+            Debug.Log(moveDirection);
+            m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 0, m_Rigidbody.velocity.z);
+            m_Rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
+            m_Fluel -= 1.5f;
+        }
+        else
+        {
+            moveDirection = transform.forward * vInput + transform.right * hInput ;
+            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * m_MultiplicatorMvtInAir, ForceMode.Force);
+        }*/
 
         bool isFiring = Input.GetButton("Fire1");
         if(isFiring && Time.time>m_TimeNextShot)
