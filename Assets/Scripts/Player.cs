@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
 using System;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour,IEventHandler
 {
@@ -50,6 +51,15 @@ public class Player : MonoBehaviour,IEventHandler
     // sprint
     public KeyCode sprintKey = KeyCode.LeftShift;
     float TranslationSpeed;
+    
+    // health bar 
+    public float maxHealth = 10f;
+    public float currentHealth;
+    //[SerializeField] private Image bar;
+
+    //Les temps pour les collision enemy player
+    [SerializeField] float waitingPeriod;
+    float nextDamage;
 
     void InitPositionAndOrientation()
     {
@@ -62,6 +72,7 @@ public class Player : MonoBehaviour,IEventHandler
     void Start()
     {
         // Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void GetInput()
@@ -112,6 +123,11 @@ public class Player : MonoBehaviour,IEventHandler
 
         m_InitPosition = transform.position;
         m_InitOrientation = transform.rotation;
+
+        //la vie du joueur
+        currentHealth = maxHealth;
+
+        nextDamage = Time.time;
     }
 
 
@@ -142,6 +158,13 @@ public class Player : MonoBehaviour,IEventHandler
             m_Rigidbody.drag = 0;
         }
         SpeedControl();
+
+        //changer le texte de la vie dans le canvas
+
+
+
+        //mise à jour du filled
+        //bar .fillAmount = currentHealth / maxHealth;
     }
 
     private void SpeedControl()
@@ -220,5 +243,26 @@ public class Player : MonoBehaviour,IEventHandler
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    public void Damage()
+    {
+        currentHealth--;
+        if (currentHealth <= 0)
+        {
+            EventManager.Instance.Raise(new GameOverEvent() {});
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("collision");
+        /*
+        if (Time.time > nextDamage)
+        {
+            EventManager.Instance.Raise(new PlayerHasBeenHitEvent() { ePlayer = collision.gameObject });
+            nextDamage = Time.time + waitingPeriod;
+        }   */
+
     }
 }

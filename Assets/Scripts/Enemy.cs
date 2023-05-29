@@ -16,7 +16,15 @@ public class Enemy : MonoBehaviour, IDestroyable
     public Slider helthBar;
 
     public Vector3 player_position;
-    //public Transform player;
+
+
+    void Awake()
+    {
+
+    
+
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -27,7 +35,7 @@ public class Enemy : MonoBehaviour, IDestroyable
         helthBar.value = Health;
 
     }
-    
+
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<EmitPositionEvent>(GetPlayerPosition);

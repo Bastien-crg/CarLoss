@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
         EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.AddListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
     public void UnsubscribeEvents()
@@ -33,6 +34,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
         EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
    
@@ -107,4 +109,12 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         player.m_Fluel = 100;
     }
+
+    void PlayerHasBeenHit(PlayerHasBeenHitEvent e)
+    {
+        IDestroyable destroyable = e.ePlayer.GetComponent<IDestroyable>();
+        if (null != destroyable)
+            destroyable.Damage();
+    }
+    
 }

@@ -60,7 +60,7 @@ public class EmitPositionEvent : SDD.Events.Event
 
 public class PlayerHasBeenHitEvent : SDD.Events.Event
 {
-    public Player ePlayer;
+    public GameObject ePlayer;
 }
 
 #endregion

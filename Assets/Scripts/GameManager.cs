@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetScore(int newScore)
     {
         m_Score = newScore;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel }); 
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
     }
     int IncrementScore(int increment)
     {
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetChronos(float newCountdown)
     {
         m_Chronos = newCountdown;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
     }
 
     float IncrementChronos(float increment)
@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetJetpackFuel(int fuel)
     {
         m_JetpackFuel = fuel;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
     }
-    
+
 
     public void SubscribeEvents()
     {
