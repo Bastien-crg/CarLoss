@@ -37,7 +37,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
-   
 
     void OnEnable()
     {
@@ -114,7 +113,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         IDestroyable destroyable = e.ePlayer.GetComponent<IDestroyable>();
         if (null != destroyable)
-            destroyable.Damage();
+        destroyable.Damage();
     }
     
 }

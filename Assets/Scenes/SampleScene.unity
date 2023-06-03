@@ -15842,6 +15842,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1483
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &279841977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1111025973889094043, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
+  m_PrefabInstance: {fileID: 1100076181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &279874732
 GameObject:
   m_ObjectHideFlags: 3
@@ -45147,12 +45152,26 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
   m_PrefabInstance: {fileID: 1100076181}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 279841977}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c8dc84a004a4445ba1de96c52b1b7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &795921272
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279841977}
+  m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &796210104
 GameObject:
   m_ObjectHideFlags: 3
@@ -62140,6 +62159,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1111025973889094040, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111025973889094040, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: m_Fluel
       value: 100
@@ -62147,7 +62174,7 @@ PrefabInstance:
     - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: healthBar
       value: 
-      objectReference: {fileID: 353459366}
+      objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -62202,6 +62229,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094046, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111025973889094047, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
+      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8007236855626767504, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
@@ -77053,6 +77084,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2095
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1358141982 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1111025973889094043, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
+  m_PrefabInstance: {fileID: 1730205091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1358141987
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358141982}
+  m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1358223511
 GameObject:
   m_ObjectHideFlags: 3
@@ -98072,6 +98122,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1111025973889094040, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111025973889094040, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111025973889094041, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
+      propertyPath: waitingPeriod
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111025973889094041, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
+      propertyPath: healtBarPlayer
+      value: 
+      objectReference: {fileID: 353459366}
     - target: {fileID: 1111025973889094041, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
       propertyPath: m_BallInitSpeed
       value: 40

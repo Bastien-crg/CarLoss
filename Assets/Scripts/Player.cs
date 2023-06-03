@@ -55,7 +55,7 @@ public class Player : MonoBehaviour,IEventHandler
     // health bar 
     public float maxHealth = 10f;
     public float currentHealth;
-    //[SerializeField] private Image bar;
+    [SerializeField] private Image healtBarPlayer;
 
     //Les temps pour les collision enemy player
     [SerializeField] float waitingPeriod;
@@ -159,12 +159,6 @@ public class Player : MonoBehaviour,IEventHandler
         }
         SpeedControl();
 
-        //changer le texte de la vie dans le canvas
-
-
-
-        //mise à jour du filled
-        //bar .fillAmount = currentHealth / maxHealth;
     }
 
     private void SpeedControl()
@@ -244,25 +238,29 @@ public class Player : MonoBehaviour,IEventHandler
     {
         readyToJump = true;
     }
-
+    
     public void Damage()
     {
         currentHealth--;
+
+        //mise à jour du filled
+        healtBarPlayer.fillAmount = currentHealth / maxHealth;
         if (currentHealth <= 0)
         {
             EventManager.Instance.Raise(new GameOverEvent() {});
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
-        Debug.Log("collision");
-        /*
-        if (Time.time > nextDamage)
+        //Si le temps est superieur à nextDamage et que le joueur à le layer Enemy
+        if (Time.time > nextDamage && collision.gameObject.layer == 6)
         {
-            EventManager.Instance.Raise(new PlayerHasBeenHitEvent() { ePlayer = collision.gameObject });
+            //EventManager.Instance.Raise(new PlayerHasBeenHitEvent() { ePlayer = collision.gameObject });
+            Damage();
             nextDamage = Time.time + waitingPeriod;
-        }   */
+            
+        }   
 
     }
 }

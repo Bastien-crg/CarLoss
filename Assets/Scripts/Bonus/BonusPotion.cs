@@ -9,13 +9,11 @@ public class BonusPotion : MonoBehaviour,IDestroyable
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("potion");
+            //Debug.Log("potion");
             EventManager.Instance.Raise(new PotionTriggerEvent());
             Kill();
         }
     }
-
-
 
     public void Kill()
     {
