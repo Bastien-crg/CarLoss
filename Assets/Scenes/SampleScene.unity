@@ -45152,17 +45152,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1111025973889094046, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
   m_PrefabInstance: {fileID: 1100076181}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &795921269 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1111025973889094041, guid: 30d0bd20a1859dd44a4fc3f74cf2c5e6, type: 3}
-  m_PrefabInstance: {fileID: 1100076181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279841977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c8dc84a004a4445ba1de96c52b1b7ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &795921272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -101727,6 +101716,10 @@ PrefabInstance:
       propertyPath: m_SpawnerSpawnPos
       value: 
       objectReference: {fileID: 1451297584}
+    - target: {fileID: 8712804628306366300, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
+      propertyPath: m_maxSpawningPeriod
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
 --- !u!1 &1783577337
@@ -113740,7 +113733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77392d02e3c174e959573ff6418ecaeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 795921269}
+  HealthBar: {fileID: 353459366}
   m_PlayerPrefab: {fileID: 1111025973889094043, guid: 1ad73ba0d79c15a4d998b9791103ccdb, type: 3}
   m_PlayerSpawnPos: {fileID: 1715255863}
 --- !u!1 &1985871435
@@ -116762,6 +116755,10 @@ PrefabInstance:
       propertyPath: m_SpawnerSpawnPos
       value: 
       objectReference: {fileID: 11630112}
+    - target: {fileID: 8712804628306366300, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
+      propertyPath: m_maxSpawningPeriod
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
 --- !u!1 &2033712928
@@ -122710,6 +122707,10 @@ PrefabInstance:
       propertyPath: m_SpawnerSpawnPos
       value: 
       objectReference: {fileID: 1257858576}
+    - target: {fileID: 8712804628306366300, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
+      propertyPath: m_maxSpawningPeriod
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
 --- !u!1 &2137706604
@@ -123531,6 +123532,10 @@ PrefabInstance:
       propertyPath: m_SpawnerSpawnPos
       value: 
       objectReference: {fileID: 1963205505}
+    - target: {fileID: 8712804628306366300, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
+      propertyPath: m_maxSpawningPeriod
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611bcbb88a7937741ba1000d33550dc3, type: 3}
 --- !u!1001 &7688198587257769796
