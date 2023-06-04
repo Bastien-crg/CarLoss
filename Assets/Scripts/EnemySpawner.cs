@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections;   
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
@@ -8,8 +8,9 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     [SerializeField] GameObject m_EnemyPrefab;
     [SerializeField] Transform m_SpawnerSpawnPos;
-    [SerializeField] float m_SpawningPeriod;
-    float m_TimeNextSpawn;
+    [SerializeField] float m_maxSpawningPeriod;
+    float SpawningPeriod;
+    float TimeNextSpawn;
     bool isGamePlay;
 
     // Start is called before the first frame update
@@ -60,10 +61,16 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
     private void FixedUpdate()
     {
         //Debug.Log(isGamePlay);
-        if (isGamePlay && Time.time > m_TimeNextSpawn)
+        if (isGamePlay && Time.time > TimeNextSpawn)
         {
             SpawnEnemy();
-            m_TimeNextSpawn = Time.time + m_SpawningPeriod;
+            if (SpawningPeriod > 2f)
+            {
+                SpawningPeriod = SpawningPeriod/2f;
+            } else {
+                SpawningPeriod = 2f;
+            }
+            TimeNextSpawn = Time.time + SpawningPeriod;
         }
     }
 
@@ -74,6 +81,7 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     void GamePlay(GamePlayEvent e)
     {
+        SpawningPeriod = m_maxSpawningPeriod;
         isGamePlay = true;
     }
 

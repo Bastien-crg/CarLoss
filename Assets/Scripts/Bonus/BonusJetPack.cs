@@ -5,11 +5,12 @@ using SDD.Events;
 
 public class BonusJetPack : MonoBehaviour, IDestroyable
 {
+    public int m_Fuel;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            EventManager.Instance.Raise(new JetPackTriggerEvent());
+            EventManager.Instance.Raise(new JetPackTriggerEvent() { fuel = m_Fuel });
             Kill();
         }
     }

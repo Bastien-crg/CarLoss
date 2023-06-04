@@ -58,21 +58,26 @@ public class EmitPositionEvent : SDD.Events.Event
 	public Vector3 position;
 }
 
+public class PlayerHasBeenHitEvent : SDD.Events.Event
+{
+    public GameObject ePlayer;
+}
+
 #endregion
 
 
 #region Bonus
 public class PotionTriggerEvent : SDD.Events.Event
 {
-
+	public float life;
 }
 
 public class JetPackTriggerEvent : SDD.Events.Event
 {
-
+	public int fuel;
 }
 
-public class JetpackHasBeenUsedEvent : SDD.Events.Event
+public class JetpackFuelHasBeenUpdatedEvent : SDD.Events.Event
 {
 	public int eLeftFuel { get; set; }
 }

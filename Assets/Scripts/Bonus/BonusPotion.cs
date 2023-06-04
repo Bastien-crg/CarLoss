@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class BonusPotion : MonoBehaviour,IDestroyable
 {
+    public float m_life;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("potion");
-            EventManager.Instance.Raise(new PotionTriggerEvent());
+            EventManager.Instance.Raise(new PotionTriggerEvent() { life = m_life });
             Kill();
         }
     }
-
-
 
     public void Kill()
     {

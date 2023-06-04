@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
 using System.Linq;
-
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour,IEventHandler
 {
     List<Cube> m_Cubes;
-    public Player player;
+    public Image HealthBar;
+    private GameObject playerGO;
 
     [SerializeField] GameObject m_PlayerPrefab;
     [SerializeField] Transform m_PlayerSpawnPos;
@@ -20,8 +21,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
-        EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
-        EventManager.Instance.AddListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
     public void UnsubscribeEvents()
@@ -31,11 +31,9 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
-        EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
-        EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
-   
 
     void OnEnable()
     {
@@ -56,38 +54,54 @@ public class LevelManager : MonoBehaviour,IEventHandler
         GameObject.FindObjectsOfType<Ball>().ToList().ForEach(item => Destroy(item.gameObject));
     }
 
+    void CleanEnemy()
+    {
+        GameObject.FindObjectsOfType<Enemy>().ToList().ForEach(item => Destroy(item.gameObject));
+    }
+
     void ActivateCubes()
     {
         m_Cubes.ForEach(item => item.gameObject.SetActive(true));
     }
 
-    void PlayerSpawning()
+    GameObject PlayerSpawning()
     {
-        /*GameObject playerGO = Instantiate(m_PlayerPrefab);
-        playerGO.transform.position = m_PlayerSpawnPos.position;*/
+        GameObject playerGO = Instantiate(m_PlayerPrefab);
+        playerGO.transform.position = m_PlayerSpawnPos.position;
+        Player player = playerGO.GetComponent<Player>();
+        player.setHealthBar(HealthBar);
+        return playerGO;
     }
 
     // GameManager events' callbacks
     void GameMenu(GameMenuEvent e)
     {
         CleanBalls();
+        CleanEnemy();
     }
 
     void GamePlay(GamePlayEvent e)
     {
+        Cursor.lockState = CursorLockMode.Locked;
         CleanBalls();
+        CleanEnemy();
         ActivateCubes();
-        PlayerSpawning();
+        playerGO = PlayerSpawning();
     }
 
     void GameVictory(GameVictoryEvent e)
     {
+        Cursor.lockState = CursorLockMode.None;
         CleanBalls();
+        CleanEnemy();
     }
 
     void GameOver(GameOverEvent e)
     {
         CleanBalls();
+        CleanEnemy();
+        Destroy(playerGO);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Ball events' callbacks
@@ -98,13 +112,13 @@ public class LevelManager : MonoBehaviour,IEventHandler
             destroyable.Damage();
     }
 
-    void PotionTrigger(PotionTriggerEvent e)
-    {
-        player.m_life = 5;
-    }
+    
 
-    void JetPackTrigger(JetPackTriggerEvent e)
+    void PlayerHasBeenHit(PlayerHasBeenHitEvent e)
     {
-        player.m_Fluel = 100;
+        IDestroyable destroyable = e.ePlayer.GetComponent<IDestroyable>();
+        if (null != destroyable)
+        destroyable.Damage();
     }
+    
 }
