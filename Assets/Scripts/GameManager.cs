@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.AddListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
     }
 
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.RemoveListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.RemoveListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
     }
 
@@ -168,6 +170,11 @@ public class GameManager : MonoBehaviour, IEventHandler
         IScore score = e.eEnemy.GetComponent<IScore>();
         if (null != score && IncrementScore(score.Score) >= m_ScoreToVictory)
             Victory();
+    }
+
+    void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
+    {
+        IncrementScore(1);
     }
 
     void JetpackFuelHasBeenUpdated(JetpackFuelHasBeenUpdatedEvent e)

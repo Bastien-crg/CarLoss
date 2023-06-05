@@ -22,7 +22,7 @@ public class BonusJetPack : MonoBehaviour, IDestroyable
         gameObject.SetActive(false);
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
         throw new System.NotImplementedException();
     }

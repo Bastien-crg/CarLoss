@@ -373,8 +373,8 @@ MonoBehaviour:
   m_MultiplicatorMvtInAir: 0.6
   m_BallPrefab: {fileID: 5476393340010740191, guid: 6f1a062db1f44448b849de58eb10ae3a, type: 3}
   m_BallSpawnPos: {fileID: 1111025974219010221}
-  m_BallInitSpeed: 30
-  m_ShootingPeriod: 0.25
+  m_BallInitSpeed: 40
+  m_ShootingPeriod: 0.15
   m_BallLifeTime: 3
   m_maxFuel: 100
   cameraOrientation: {fileID: 1445383189566518047}
@@ -388,7 +388,6 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   maxHealth: 10
-  healtBarPlayer: {fileID: 0}
   waitingPeriod: 0
 --- !u!136 &1111025973889094040
 CapsuleCollider:

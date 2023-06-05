@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cube : MonoBehaviour,IDestroyable
 {
     
-    public void Damage()
+    public void Damage(int damage)
     {
         throw new System.NotImplementedException();
     }

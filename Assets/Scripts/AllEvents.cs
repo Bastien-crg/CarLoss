@@ -88,5 +88,11 @@ public class JetpackFuelHasBeenUpdatedEvent : SDD.Events.Event
 public class EnemyHasBeenHitEvent: SDD.Events.Event
 {
 	public GameObject eEnemy;
+	public int damage;
+}
+
+public class EnemyHasBeenKillEvent : SDD.Events.Event
+{
+	
 }
 #endregion

@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
-        EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
+        //EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
     public void UnsubscribeEvents()
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
-        EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
+        //EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
     }
 
 
@@ -109,16 +109,16 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         IDestroyable destroyable = e.eEnemy.GetComponent<IDestroyable>();
         if (null != destroyable)
-            destroyable.Damage();
+            destroyable.Damage(e.damage);
     }
 
     
 
-    void PlayerHasBeenHit(PlayerHasBeenHitEvent e)
+    /*void PlayerHasBeenHit(PlayerHasBeenHitEvent e)
     {
         IDestroyable destroyable = e.ePlayer.GetComponent<IDestroyable>();
         if (null != destroyable)
         destroyable.Damage();
-    }
+    }*/
     
 }

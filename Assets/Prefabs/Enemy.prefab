@@ -74,7 +74,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1.91, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.00000007955633, y: 2.18}
+  m_AnchoredPosition: {x: 0, y: 2.18}
   m_SizeDelta: {x: 1316, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8406635449260840116
@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 1220611179040289508}
   - component: {fileID: -4861503717041350755}
   - component: {fileID: 6211508169905257734}
+  - component: {fileID: 6045031657683687507}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -201,10 +202,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.2
+  m_Height: 1.86
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!54 &-4861503717041350755
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,6 +244,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!135 &6045031657683687507
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615800077717987880}
+  m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.21
+  m_Center: {x: 0, y: 1.65, z: 0}
 --- !u!1 &7147872903747359578
 GameObject:
   m_ObjectHideFlags: 0

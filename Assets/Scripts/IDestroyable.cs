@@ -6,5 +6,5 @@ public interface IDestroyable
 {
     void Kill();
 
-    void Damage();
+    void Damage(int damage);
 }

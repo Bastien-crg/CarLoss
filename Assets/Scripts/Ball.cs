@@ -6,6 +6,8 @@ using SDD.Events;
 public class Ball : MonoBehaviour
 {
     [SerializeField] LayerMask m_ColorizableLayerMask;
+    private int ball_damage = 1;
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,9 +25,13 @@ public class Ball : MonoBehaviour
         // if (null != collision.gameObject.GetComponent<ColorizableTag>())
 
         //IDENTIFICATION FONCTIONNELLE PAR INTERFACE
-
-        EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject });
-
-        
+        if (collision.collider.GetType() == typeof(SphereCollider))
+        {
+            Debug.Log("tete");
+            EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage*10 });
+        } else {
+            Debug.Log("corps");
+            EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage });
+        }
     }
 }

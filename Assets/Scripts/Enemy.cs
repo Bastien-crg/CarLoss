@@ -62,13 +62,15 @@ public class Enemy : MonoBehaviour, IDestroyable
 
     public void Kill()
     {
+        EventManager.Instance.Raise(new EnemyHasBeenKillEvent());
         Destroy(gameObject);
         //throw new System.NotImplementedException();
     }
 
-    public void Damage()
+    public void Damage(int damage)
     {
-        Health--;
+        Debug.Log(damage);
+        Health-=damage;
         if (Health <= 0)
         {
             Kill();
