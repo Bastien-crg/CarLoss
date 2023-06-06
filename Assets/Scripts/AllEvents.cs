@@ -77,9 +77,20 @@ public class JetPackTriggerEvent : SDD.Events.Event
 	public int fuel;
 }
 
+public class ShootBonusTriggerEvent : SDD.Events.Event
+{
+	public float cooldown;
+	public float bonus_time;
+}
+
 public class JetpackFuelHasBeenUpdatedEvent : SDD.Events.Event
 {
 	public int eLeftFuel { get; set; }
+}
+
+public class PlayerHasKilledLotOfEnenmiesEvent : SDD.Events.Event
+{
+
 }
 
 #endregion

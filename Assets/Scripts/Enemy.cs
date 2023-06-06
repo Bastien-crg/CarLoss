@@ -69,7 +69,6 @@ public class Enemy : MonoBehaviour, IDestroyable
 
     public void Damage(int damage)
     {
-        Debug.Log(damage);
         Health-=damage;
         if (Health <= 0)
         {

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour, IEventHandler
 {
     private static GameManager m_Instance;
     public static GameManager Instance { get { return m_Instance; } }
+    private bool ShootingBonusFlag = true;
 
     GAMESTATE m_State;
     public bool IsPlaying => m_State == GAMESTATE.play;
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<PlayButtonClickedEvent>(PlayButtonClicked);
         EventManager.Instance.AddListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
-        EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        //EventManager.Instance.AddListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
         EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.AddListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
     }
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.RemoveListener<PlayButtonClickedEvent>(PlayButtonClicked);
         EventManager.Instance.RemoveListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
-        EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
+        //EventManager.Instance.RemoveListener<EnemyHasBeenHitEvent>(EnemyHasBeenHit);
         EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.RemoveListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
     }
@@ -96,6 +97,15 @@ public class GameManager : MonoBehaviour, IEventHandler
         {
             IncrementChronos(Time.deltaTime);
      
+        }
+
+        if (m_Score % 50 == 0 && m_Score != 0 && ShootingBonusFlag)
+        {
+            EventManager.Instance.Raise(new PlayerHasKilledLotOfEnenmiesEvent());
+            ShootingBonusFlag = false;
+        } else if (m_Score % 50 != 0)
+        {
+            ShootingBonusFlag = true;
         }
     }
 
@@ -165,12 +175,12 @@ public class GameManager : MonoBehaviour, IEventHandler
     }
 
     // Ball events' callbacks
-    void EnemyHasBeenHit(EnemyHasBeenHitEvent e)
+    /*void EnemyHasBeenHit(EnemyHasBeenHitEvent e)
     {
         IScore score = e.eEnemy.GetComponent<IScore>();
         if (null != score && IncrementScore(score.Score) >= m_ScoreToVictory)
             Victory();
-    }
+    }*/
 
     void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {

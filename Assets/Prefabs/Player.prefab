@@ -374,7 +374,7 @@ MonoBehaviour:
   m_BallPrefab: {fileID: 5476393340010740191, guid: 6f1a062db1f44448b849de58eb10ae3a, type: 3}
   m_BallSpawnPos: {fileID: 1111025974219010221}
   m_BallInitSpeed: 40
-  m_ShootingPeriod: 0.15
+  m_BasicShootingPeriod: 0.25
   m_BallLifeTime: 3
   m_maxFuel: 100
   cameraOrientation: {fileID: 1445383189566518047}

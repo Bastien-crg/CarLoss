@@ -16,8 +16,8 @@ public class Player : MonoBehaviour,IEventHandler
     [SerializeField] GameObject m_BallPrefab;
     [SerializeField] Transform m_BallSpawnPos;
     [SerializeField] float m_BallInitSpeed;
-
-    [SerializeField] float m_ShootingPeriod;
+    public float m_BasicShootingPeriod;
+    private float ShootingPeriod;
     [SerializeField] float m_BallLifeTime;
     
     float m_TimeNextShot;
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour,IEventHandler
     {
         
         currentFuel = m_maxFuel;
-
+        ShootingPeriod = m_BasicShootingPeriod;
     }
 
     private void GetInput()
@@ -109,6 +109,7 @@ public class Player : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.AddListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.AddListener<ShootBonusTriggerEvent>(ShootBonusTrigger);
     }
 
     public void UnsubscribeEvents()
@@ -117,6 +118,7 @@ public class Player : MonoBehaviour,IEventHandler
 
         EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
+        EventManager.Instance.RemoveListener<ShootBonusTriggerEvent>(ShootBonusTrigger);
     }
 
     void OnEnable()
@@ -202,32 +204,11 @@ public class Player : MonoBehaviour,IEventHandler
         m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
 
 
-
-        /*if (isOnTheGrounded)
-        {
-            moveDirection = transform.forward * vInput + transform.right * hInput;
-            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
-        }
-        if(!isOnTheGrounded && m_Fluel > 0 && Input.GetKey(jumpKey))
-        {
-            moveDirection = transform.forward * vInput + transform.right * hInput;
-            Debug.Log(moveDirection);
-            m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 0, m_Rigidbody.velocity.z);
-            m_Rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
-            m_Fluel -= 1.5f;
-        }
-        else
-        {
-            moveDirection = transform.forward * vInput + transform.right * hInput ;
-            m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * m_MultiplicatorMvtInAir, ForceMode.Force);
-        }*/
-
         bool isFiring = Input.GetButton("Fire1");
         if(isFiring && Time.time>m_TimeNextShot)
         {
             Destroy(ShootBall(),m_BallLifeTime);
-            m_TimeNextShot = Time.time + m_ShootingPeriod;
+            m_TimeNextShot = Time.time + ShootingPeriod;
         }
 
     }
@@ -291,5 +272,17 @@ public class Player : MonoBehaviour,IEventHandler
             currentFuel = m_maxFuel;
         }
         EventManager.Instance.Raise(new JetpackFuelHasBeenUpdatedEvent() { eLeftFuel = currentFuel });
+    }
+
+    void ShootBonusTrigger(ShootBonusTriggerEvent e)
+    {
+        ShootingPeriod = e.cooldown;
+        StartCoroutine(ShootBonusWait(e.bonus_time));
+    }
+
+    IEnumerator ShootBonusWait(float bonus_time)
+    {
+        yield return new WaitForSeconds(bonus_time);
+        ShootingPeriod = m_BasicShootingPeriod;
     }
 }

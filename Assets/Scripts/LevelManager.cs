@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour,IEventHandler
 
     [SerializeField] GameObject m_PlayerPrefab;
     [SerializeField] Transform m_PlayerSpawnPos;
+    [SerializeField] GameObject m_BonusShootPrefab;
+    [SerializeField] Transform m_BonusShootSpawnPos;
 
     public void SubscribeEvents()
     {
@@ -21,7 +23,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
-        //EventManager.Instance.AddListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
+        EventManager.Instance.AddListener<PlayerHasKilledLotOfEnenmiesEvent>(PlayerHasKilledLotOfEnenmies);
     }
 
     public void UnsubscribeEvents()
@@ -31,7 +33,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
-        //EventManager.Instance.RemoveListener<PlayerHasBeenHitEvent>(PlayerHasBeenHit);
+        EventManager.Instance.RemoveListener<PlayerHasKilledLotOfEnenmiesEvent>(PlayerHasKilledLotOfEnenmies);
     }
 
 
@@ -114,11 +116,10 @@ public class LevelManager : MonoBehaviour,IEventHandler
 
     
 
-    /*void PlayerHasBeenHit(PlayerHasBeenHitEvent e)
+    void PlayerHasKilledLotOfEnenmies(PlayerHasKilledLotOfEnenmiesEvent e)
     {
-        IDestroyable destroyable = e.ePlayer.GetComponent<IDestroyable>();
-        if (null != destroyable)
-        destroyable.Damage();
-    }*/
+        GameObject playerGO = Instantiate(m_BonusShootPrefab);
+        playerGO.transform.position = m_BonusShootSpawnPos.position;
+    }
     
 }

@@ -27,10 +27,8 @@ public class Ball : MonoBehaviour
         //IDENTIFICATION FONCTIONNELLE PAR INTERFACE
         if (collision.collider.GetType() == typeof(SphereCollider))
         {
-            Debug.Log("tete");
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage*10 });
         } else {
-            Debug.Log("corps");
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage });
         }
     }
