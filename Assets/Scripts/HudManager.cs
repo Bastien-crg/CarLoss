@@ -12,11 +12,10 @@ public class HudManager : MonoBehaviour,IEventHandler
     [SerializeField] TMP_Text m_TimeValue;
     [SerializeField] TMP_Text m_JetpackFuel;
 
-    void SetStatisticsTexts(int score, float time, int fuel)
+    void SetStatisticsTexts(int score, float time)
     {
         m_ScoreValue.text = score.ToString();
         m_TimeValue.text = time.ToString("N01");
-        m_JetpackFuel.text = fuel.ToString();
     }
 
     public void SubscribeEvents()
@@ -41,6 +40,6 @@ public class HudManager : MonoBehaviour,IEventHandler
     // GameManager events' callbaks
     void GameStatisticsChanged(GameStatisticsChangedEvent e)
     {
-        SetStatisticsTexts(e.eScore, e.eCountDown, e.eFuel);
+        SetStatisticsTexts(e.eScore, e.eCountDown);
     }
 }

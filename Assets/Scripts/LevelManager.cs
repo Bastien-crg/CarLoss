@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
 {
     List<Cube> m_Cubes;
     public Image HealthBar;
+    public Image FuelBar;
     private GameObject playerGO;
 
     [SerializeField] GameObject m_PlayerPrefab;
@@ -72,6 +73,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         playerGO.transform.position = m_PlayerSpawnPos.position;
         Player player = playerGO.GetComponent<Player>();
         player.setHealthBar(HealthBar);
+        player.setFuelhBar(FuelBar);
         return playerGO;
     }
 

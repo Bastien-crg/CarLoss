@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetScore(int newScore)
     {
         m_Score = newScore;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos });
     }
     int IncrementScore(int increment)
     {
@@ -31,20 +31,13 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetChronos(float newCountdown)
     {
         m_Chronos = newCountdown;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos});
     }
 
     float IncrementChronos(float increment)
     {
         SetChronos(m_Chronos + increment);
         return m_Chronos;
-    }
-
-    int m_JetpackFuel;
-    void SetJetpackFuel(int fuel)
-    {
-        m_JetpackFuel = fuel;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
     }
 
 
@@ -87,7 +80,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
-        SetJetpackFuel(100);
+        //SetJetpackFuel(100f);
         MainMenu();
     }
 
@@ -140,7 +133,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
-        SetJetpackFuel(100);
+        //SetJetpackFuel(100f);
     }
 
     void Play()
@@ -174,14 +167,6 @@ public class GameManager : MonoBehaviour, IEventHandler
         MainMenu();
     }
 
-    // Ball events' callbacks
-    /*void EnemyHasBeenHit(EnemyHasBeenHitEvent e)
-    {
-        IScore score = e.eEnemy.GetComponent<IScore>();
-        if (null != score && IncrementScore(score.Score) >= m_ScoreToVictory)
-            Victory();
-    }*/
-
     void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {
         IncrementScore(1);
@@ -189,7 +174,7 @@ public class GameManager : MonoBehaviour, IEventHandler
 
     void JetpackFuelHasBeenUpdated(JetpackFuelHasBeenUpdatedEvent e)
     {
-        SetJetpackFuel(e.eLeftFuel);
+        //SetJetpackFuel(e.eLeftFuel);
     }
 
 }

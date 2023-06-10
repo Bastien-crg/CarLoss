@@ -388,7 +388,7 @@ MonoBehaviour:
   jumpKey: 32
   sprintKey: 304
   maxHealth: 10
-  waitingPeriod: 0
+  waitingPeriod: 1
 --- !u!136 &1111025973889094040
 CapsuleCollider:
   m_ObjectHideFlags: 0
