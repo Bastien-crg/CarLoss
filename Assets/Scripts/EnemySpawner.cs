@@ -8,15 +8,12 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     [SerializeField] GameObject m_EnemyPrefab;
     [SerializeField] Transform m_SpawnerSpawnPos;
-    [SerializeField] float m_maxSpawningPeriod;
-    float SpawningPeriod;
-    float TimeNextSpawn;
-    bool isGamePlay;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        isGamePlay = false;
+
     }
 
     // Update is called once per frame
@@ -36,62 +33,29 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     public void SubscribeEvents()
     {
-        EventManager.Instance.AddListener<GameMenuEvent>(GameMenu);
-        EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
-        EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
-        EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+        EventManager.Instance.AddListener<SpawnEnemyEvent>(SpawnEnemy);
     }
 
     public void UnsubscribeEvents()
     {
-        EventManager.Instance.RemoveListener<GameMenuEvent>(GameMenu);
-        EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
-        EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
-        EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
+        EventManager.Instance.RemoveListener<SpawnEnemyEvent>(SpawnEnemy);
     }
 
-    GameObject SpawnEnemy()
+
+    void SpawnEnemy(SpawnEnemyEvent e)
     {
-        GameObject newEnemyGO = Instantiate(m_EnemyPrefab);
-        newEnemyGO.transform.position = m_SpawnerSpawnPos.position;
-        Debug.Log(newEnemyGO.transform.position);
-        return newEnemyGO;
+        StartCoroutine(SpawningCoroutine(e.nbOfEnemy));
     }
 
-    private void FixedUpdate()
+    IEnumerator SpawningCoroutine(int nbOfEnemy)
     {
-        //Debug.Log(isGamePlay);
-        if (isGamePlay && Time.time > TimeNextSpawn)
+        for (int i = 0; i < nbOfEnemy; i++)
         {
-            SpawnEnemy();
-            if (SpawningPeriod > 2f)
-            {
-                SpawningPeriod = SpawningPeriod/2f;
-            } else {
-                SpawningPeriod = 2f;
-            }
-            TimeNextSpawn = Time.time + SpawningPeriod;
+            GameObject newEnemyGO = Instantiate(m_EnemyPrefab);
+            newEnemyGO.transform.position = m_SpawnerSpawnPos.position;
+            Debug.Log(newEnemyGO.transform.position);
+            yield return new WaitForSeconds(1.0f);
         }
-    }
 
-    void GameMenu(GameMenuEvent e)
-    {
-        isGamePlay = false;
-    }
-
-    void GamePlay(GamePlayEvent e)
-    {
-        SpawningPeriod = m_maxSpawningPeriod;
-        isGamePlay = true;
-    }
-
-    void GameVictory(GameVictoryEvent e)
-    {
-        isGamePlay = false;
-    }
-
-    void GameOver(GameOverEvent e)
-    {
-        isGamePlay = false;
     }
 }

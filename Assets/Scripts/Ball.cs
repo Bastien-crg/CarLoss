@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.collider.GetType());
         // IDENTIFICATION PAR NAME
         //if(collision.gameObject.name.Equals("Cube"))
         //if (collision.gameObject.name.ToUpper().Contains("CUBE"))
@@ -27,9 +28,12 @@ public class Ball : MonoBehaviour
         //IDENTIFICATION FONCTIONNELLE PAR INTERFACE
         if (collision.collider.GetType() == typeof(SphereCollider))
         {
-            EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage*10 });
-        } else {
+            EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage * 10 });
+        }
+        else
+        {
             EventManager.Instance.Raise(new EnemyHasBeenHitEvent() { eEnemy = collision.gameObject, damage = ball_damage });
         }
+        
     }
 }

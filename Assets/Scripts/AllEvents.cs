@@ -88,11 +88,6 @@ public class JetpackFuelHasBeenUpdatedEvent : SDD.Events.Event
 	public int eLeftFuel { get; set; }
 }
 
-public class PlayerHasKilledLotOfEnenmiesEvent : SDD.Events.Event
-{
-
-}
-
 #endregion
 
 #region Enemy Event
@@ -105,5 +100,10 @@ public class EnemyHasBeenHitEvent: SDD.Events.Event
 public class EnemyHasBeenKillEvent : SDD.Events.Event
 {
 	
+}
+
+public class SpawnEnemyEvent : SDD.Events.Event
+{
+	public int nbOfEnemy;
 }
 #endregion

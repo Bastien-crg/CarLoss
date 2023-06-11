@@ -149,7 +149,7 @@ public class Player : MonoBehaviour,IEventHandler
     {
         GameObject newBallGO = Instantiate(m_BallPrefab);
         newBallGO.transform.position = m_BallSpawnPos.position;
-        newBallGO.transform.rotation = cameraOrientation.rotation;
+        newBallGO.transform.rotation = m_BallSpawnPos.rotation;
         newBallGO.GetComponent<Rigidbody>().velocity =
                      m_BallSpawnPos.forward * m_BallInitSpeed;
         return newBallGO;

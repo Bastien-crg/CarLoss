@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour,IEventHandler
 {
-    List<Cube> m_Cubes;
+    private int EnemyKilledCounter;
     public Image HealthBar;
     private GameObject playerGO;
 
@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
-        EventManager.Instance.AddListener<PlayerHasKilledLotOfEnenmiesEvent>(PlayerHasKilledLotOfEnenmies);
+        EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
     }
 
     public void UnsubscribeEvents()
@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
-        EventManager.Instance.RemoveListener<PlayerHasKilledLotOfEnenmiesEvent>(PlayerHasKilledLotOfEnenmies);
+        EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
     }
 
 
@@ -48,7 +48,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
     // Start is called before the first frame update
     void Start()
     {
-        m_Cubes = GameObject.FindObjectsOfType<Cube>().ToList();
     }
 
     void CleanBalls()
@@ -59,11 +58,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
     void CleanEnemy()
     {
         GameObject.FindObjectsOfType<Enemy>().ToList().ForEach(item => Destroy(item.gameObject));
-    }
-
-    void ActivateCubes()
-    {
-        m_Cubes.ForEach(item => item.gameObject.SetActive(true));
     }
 
     GameObject PlayerSpawning()
@@ -87,7 +81,6 @@ public class LevelManager : MonoBehaviour,IEventHandler
         Cursor.lockState = CursorLockMode.Locked;
         CleanBalls();
         CleanEnemy();
-        ActivateCubes();
         playerGO = PlayerSpawning();
     }
 
@@ -114,12 +107,14 @@ public class LevelManager : MonoBehaviour,IEventHandler
             destroyable.Damage(e.damage);
     }
 
-    
-
-    void PlayerHasKilledLotOfEnenmies(PlayerHasKilledLotOfEnenmiesEvent e)
+    void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {
-        GameObject playerGO = Instantiate(m_BonusShootPrefab);
-        playerGO.transform.position = m_BonusShootSpawnPos.position;
+        EnemyKilledCounter++;
+        if (EnemyKilledCounter % 50 == 0)
+        {
+            GameObject playerGO = Instantiate(m_BonusShootPrefab);
+            playerGO.transform.position = m_BonusShootSpawnPos.position;
+        }
     }
-    
+
 }
