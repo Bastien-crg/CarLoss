@@ -63,6 +63,12 @@ public class PlayerHasBeenHitEvent : SDD.Events.Event
     public GameObject ePlayer;
 }
 
+public class PlayerHasShootEvent : SDD.Events.Event
+{
+    
+}
+
+
 #endregion
 
 
