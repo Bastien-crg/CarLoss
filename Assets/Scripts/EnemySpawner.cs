@@ -44,7 +44,7 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     void SpawnEnemy(SpawnEnemyEvent e)
     {
-        StartCoroutine(SpawningCoroutine(e.nbOfEnemy));
+        StartCoroutine(SpawningCoroutine(e.eNumberOfEnemy));
     }
 
     IEnumerator SpawningCoroutine(int nbOfEnemy)

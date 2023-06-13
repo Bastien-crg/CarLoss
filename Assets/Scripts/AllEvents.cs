@@ -26,7 +26,7 @@ public class GameStatisticsChangedEvent : SDD.Events.Event
 {
 	public int eScore { get; set; }
 	public float eCountDown { get; set; }
-	public int eFuel { get; set; }
+	public int eWave { get; set; }
 }
 #endregion
 
@@ -104,6 +104,7 @@ public class EnemyHasBeenKillEvent : SDD.Events.Event
 
 public class SpawnEnemyEvent : SDD.Events.Event
 {
-	public int nbOfEnemy;
+	public int eNumberOfEnemy;
+	public int eWaveNumber;
 }
 #endregion

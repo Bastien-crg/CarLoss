@@ -22,8 +22,10 @@ public class Player : MonoBehaviour,IEventHandler
     
     float m_TimeNextShot;
 
-    private int currentFuel;
-    public int m_maxFuel;
+    public float currentFuel;
+    public float m_maxFuel;
+    private Image helthbarJetpack;
+
     //Animator animator;
 
     Rigidbody m_Rigidbody;
@@ -65,6 +67,13 @@ public class Player : MonoBehaviour,IEventHandler
     public void setHealthBar(Image img)
     {
         healtBarPlayer = img;
+
+    }
+    
+    public void setFuelhBar(Image img)
+    {
+        helthbarJetpack = img;
+
     }
 
     void InitPositionAndOrientation()
@@ -78,7 +87,6 @@ public class Player : MonoBehaviour,IEventHandler
     void Start()
     {
         
-        currentFuel = m_maxFuel;
         ShootingPeriod = m_BasicShootingPeriod;
     }
 
@@ -141,6 +149,9 @@ public class Player : MonoBehaviour,IEventHandler
         //la vie du joueur
         currentHealth = maxHealth;
 
+        //le fuel du jetpack
+        currentFuel = m_maxFuel;
+
         nextDamage = Time.time;
     }
 
@@ -197,9 +208,11 @@ public class Player : MonoBehaviour,IEventHandler
         else if (!isOnTheGrounded && currentFuel > 0 && Input.GetKey(jumpKey))
         {
             moveDirection = transform.forward * vInput + transform.right * hInput;
-            Jump(); 
+            Jump();
             currentFuel -= 1;
-            EventManager.Instance.Raise(new JetpackFuelHasBeenUpdatedEvent() { eLeftFuel = currentFuel });
+            //mise à jour du filled
+            helthbarJetpack.fillAmount = currentFuel / m_maxFuel;
+            EventManager.Instance.Raise(new JetpackFuelHasBeenUpdatedEvent() { eLeftFuel = (int)currentFuel });
         }
         m_Rigidbody.AddForce(moveDirection.normalized * TranslationSpeed * 10f, ForceMode.Force);
 
@@ -267,11 +280,13 @@ public class Player : MonoBehaviour,IEventHandler
     void JetPackTrigger(JetPackTriggerEvent e)
     {
         currentFuel += e.fuel;
+        helthbarJetpack.fillAmount = currentFuel / m_maxFuel;
+
         if (currentFuel > m_maxFuel)
         {
             currentFuel = m_maxFuel;
         }
-        EventManager.Instance.Raise(new JetpackFuelHasBeenUpdatedEvent() { eLeftFuel = currentFuel });
+        //EventManager.Instance.Raise(new JetpackFuelHasBeenUpdatedEvent() { eLeftFuel = (int)currentFuel });
     }
 
     void ShootBonusTrigger(ShootBonusTriggerEvent e)

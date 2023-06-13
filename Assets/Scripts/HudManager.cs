@@ -10,13 +10,13 @@ public class HudManager : MonoBehaviour,IEventHandler
 {
     [SerializeField] TMP_Text m_ScoreValue;
     [SerializeField] TMP_Text m_TimeValue;
-    [SerializeField] TMP_Text m_JetpackFuel;
+    [SerializeField] TMP_Text m_WaveNumber;
 
-    void SetStatisticsTexts(int score, float time, int fuel)
+    void SetStatisticsTexts(int score, float time, int wave)
     {
         m_ScoreValue.text = score.ToString();
         m_TimeValue.text = time.ToString("N01");
-        m_JetpackFuel.text = fuel.ToString();
+        m_WaveNumber.text = wave.ToString();
     }
 
     public void SubscribeEvents()
@@ -41,6 +41,6 @@ public class HudManager : MonoBehaviour,IEventHandler
     // GameManager events' callbaks
     void GameStatisticsChanged(GameStatisticsChangedEvent e)
     {
-        SetStatisticsTexts(e.eScore, e.eCountDown, e.eFuel);
+        SetStatisticsTexts(e.eScore, e.eCountDown, e.eWave);
     }
 }

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetScore(int newScore)
     {
         m_Score = newScore;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel });
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eWave = m_wave });
     }
     int IncrementScore(int increment)
     {
@@ -30,20 +30,20 @@ public class GameManager : MonoBehaviour, IEventHandler
     void SetChronos(float newCountdown)
     {
         m_Chronos = newCountdown;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eWave = m_wave });
+    }
+
+    int m_wave;
+    void SetWave(int wave)
+    {
+        m_wave = wave;
+        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eWave = m_wave });
     }
 
     float IncrementChronos(float increment)
     {
         SetChronos(m_Chronos + increment);
         return m_Chronos;
-    }
-
-    int m_JetpackFuel;
-    void SetJetpackFuel(int fuel)
-    {
-        m_JetpackFuel = fuel;
-        EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eScore = m_Score, eCountDown = m_Chronos, eFuel = m_JetpackFuel});
     }
 
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
-        EventManager.Instance.AddListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
+        EventManager.Instance.AddListener<SpawnEnemyEvent>(SpawnEnemy);
     }
 
     public void UnsubscribeEvents()
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.RemoveListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
-        EventManager.Instance.RemoveListener<JetpackFuelHasBeenUpdatedEvent>(JetpackFuelHasBeenUpdated);
+        EventManager.Instance.RemoveListener<SpawnEnemyEvent>(SpawnEnemy);
     }
 
     void OnEnable()
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
-        SetJetpackFuel(100);
+        SetWave(0);
         MainMenu();
     }
 
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour, IEventHandler
     {
         SetScore(0);
         SetChronos(0);
-        SetJetpackFuel(100);
+        SetWave(0);
     }
 
     void Play()
@@ -162,22 +162,14 @@ public class GameManager : MonoBehaviour, IEventHandler
         MainMenu();
     }
 
-    // Ball events' callbacks
-    /*void EnemyHasBeenHit(EnemyHasBeenHitEvent e)
-    {
-        IScore score = e.eEnemy.GetComponent<IScore>();
-        if (null != score && IncrementScore(score.Score) >= m_ScoreToVictory)
-            Victory();
-    }*/
-
     void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {
         IncrementScore(1);
     }
 
-    void JetpackFuelHasBeenUpdated(JetpackFuelHasBeenUpdatedEvent e)
+    void SpawnEnemy(SpawnEnemyEvent e)
     {
-        SetJetpackFuel(e.eLeftFuel);
+        SetWave(e.eWaveNumber);
     }
 
 }
