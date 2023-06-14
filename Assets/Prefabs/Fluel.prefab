@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3261585399519066648}
   - component: {fileID: 527844439}
   - component: {fileID: 7068485795221320414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fluel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9f576295b0db4a951c60537086d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Fuel: 0

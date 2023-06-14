@@ -160,7 +160,6 @@ public class Player : MonoBehaviour,IEventHandler
     {
 
         EventManager.Instance.Raise(new PlayerHasShootEvent());
-        Debug.Log("Gucci");
         GameObject newBallGO = Instantiate(m_BallPrefab);
         newBallGO.transform.position = m_BallSpawnPos.position;
         newBallGO.transform.rotation = m_BallSpawnPos.rotation;

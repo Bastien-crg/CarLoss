@@ -112,7 +112,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {
         EnemyKilledCounter++;
-        if (EnemyKilledCounter % 50 == 0)
+        if (EnemyKilledCounter % 25 == 0)
         {
             GameObject playerGO = Instantiate(m_BonusShootPrefab);
             playerGO.transform.position = m_BonusShootSpawnPos.position;
