@@ -83,7 +83,6 @@ public class AudioManager : MonoBehaviour, IEventHandler
 
     public void PlayerHasShoot(PlayerHasShootEvent e)
     {
-        Debug.Log("Prada");
         PlaySFX("Shoot");
     }
 }
