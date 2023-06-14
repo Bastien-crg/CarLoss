@@ -158,6 +158,8 @@ public class Player : MonoBehaviour,IEventHandler
 
     GameObject ShootBall()
     {
+
+        EventManager.Instance.Raise(new PlayerHasShootEvent());
         GameObject newBallGO = Instantiate(m_BallPrefab);
         newBallGO.transform.position = m_BallSpawnPos.position;
         newBallGO.transform.rotation = cameraOrientation.rotation;
