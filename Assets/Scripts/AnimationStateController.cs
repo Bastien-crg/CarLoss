@@ -8,6 +8,8 @@ public class AnimationStateController : MonoBehaviour
     int isWalkingHash;
     int isRunningHash;
     int isJumpingHash;
+    private float hInput;
+    private float vInput;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +27,16 @@ public class AnimationStateController : MonoBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
         bool isJumping = animator.GetBool(isJumpingHash);
-        bool forwardPressed = Input.GetKey("z");
+        bool forwardPressed = false;
         bool runningPressed = Input.GetKey("left shift");
         bool sneakingPressed = Input.GetKey("space");
+
+        hInput = Input.GetAxisRaw("Horizontal");
+        vInput = Input.GetAxisRaw("Vertical");
+
+        if (vInput > 0)
+            forwardPressed = true;
+
         if (!isWalking && forwardPressed)
         {
             animator.SetBool(isWalkingHash, true);
