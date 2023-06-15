@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SDD.Events;
+using TMPro;
 
 public enum GAMESTATE { menu,play,pause,victory,gameover}
 
@@ -10,11 +11,13 @@ public class GameManager : MonoBehaviour, IEventHandler
     private static GameManager m_Instance;
     public static GameManager Instance { get { return m_Instance; } }
 
-    GAMESTATE m_State;
+    [SerializeField] GAMESTATE m_State;
     public bool IsPlaying => m_State == GAMESTATE.play;
 
     int m_Score;
+    int m_HighScore;
     [SerializeField] int m_ScoreToVictory;
+    [SerializeField] TextMeshProUGUI highScoreText;
     void SetScore(int newScore)
     {
         m_Score = newScore;
@@ -23,7 +26,24 @@ public class GameManager : MonoBehaviour, IEventHandler
     int IncrementScore(int increment)
     {
         SetScore(m_Score + increment);
+        CheckHighScore();
         return m_Score;
+    }
+
+    void CheckHighScore()
+    {
+        m_HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (m_Score >= m_HighScore)
+        {
+            PlayerPrefs.SetInt("HighScore", m_Score);
+            PlayerPrefs.Save();
+        }
+    }
+    
+    void UpdateHighScoreText()
+    {
+        m_HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        highScoreText.text = $"{m_HighScore}";
     }
 
     float m_Chronos;
@@ -54,15 +74,19 @@ public class GameManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.AddListener<SpawnEnemyEvent>(SpawnEnemy);
+        EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+        EventManager.Instance.AddListener<GameVictoryEvent>(Victory);
     }
 
-    public void UnsubscribeEvents()
+    public void UnsubscribeEvents() 
     {
         EventManager.Instance.RemoveListener<PlayButtonClickedEvent>(PlayButtonClicked);
         EventManager.Instance.RemoveListener<ReplayButtonClickedEvent>(ReplayButtonClicked);
         EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
         EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
         EventManager.Instance.RemoveListener<SpawnEnemyEvent>(SpawnEnemy);
+        EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
+        EventManager.Instance.RemoveListener<GameVictoryEvent>(Victory);
     }
 
     void OnEnable()
@@ -85,15 +109,16 @@ public class GameManager : MonoBehaviour, IEventHandler
         SetScore(0);
         SetChronos(0);
         SetWave(0);
+        UpdateHighScoreText();
         MainMenu();
     }
 
     void Update()
     {
-        if(IsPlaying)
+        if(IsPlaying && m_State == GAMESTATE.play)
         {
             IncrementChronos(Time.deltaTime);
-     
+            UpdateHighScoreText();
         }
     }
 
@@ -108,12 +133,6 @@ public class GameManager : MonoBehaviour, IEventHandler
                 break;
             case GAMESTATE.play:
                 EventManager.Instance.Raise(new GamePlayEvent());
-                break;
-            case GAMESTATE.victory:
-                EventManager.Instance.Raise(new GameVictoryEvent());
-                break;
-            case GAMESTATE.gameover:
-                EventManager.Instance.Raise(new GameOverEvent());
                 break;
         }
 
@@ -137,11 +156,11 @@ public class GameManager : MonoBehaviour, IEventHandler
         SetState(GAMESTATE.play);
     }
 
-    void Victory()
+    void Victory(GameVictoryEvent e)
     {
         SetState(GAMESTATE.victory);
     }
-    void GameOver()
+    void GameOver(GameOverEvent e)
     {
         SetState(GAMESTATE.gameover);
     }
