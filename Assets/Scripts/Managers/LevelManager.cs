@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
         EventManager.Instance.AddListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
+        EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonEvent);
     }
 
     public void UnsubscribeEvents()
@@ -39,6 +40,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
         EventManager.Instance.RemoveListener<EnemyHasBeenKillEvent>(EnemyHasBeenKill);
+        EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonEvent);
     }
 
 
@@ -65,6 +67,11 @@ public class LevelManager : MonoBehaviour,IEventHandler
         GameObject.FindObjectsOfType<Enemy>().ToList().ForEach(item => Destroy(item.gameObject));
     }
 
+    void CleanSpaceShip()
+    {
+        GameObject.FindObjectsOfType<Starship>().ToList().ForEach(item => Destroy(item.gameObject));
+    }
+
     GameObject PlayerSpawning()
     {
         GameObject playerGO = Instantiate(m_PlayerPrefab);
@@ -86,6 +93,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     {
         CleanBalls();
         CleanEnemy();
+        CleanSpaceShip();
     }
 
     void GamePlay(GamePlayEvent e)
@@ -93,6 +101,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         Cursor.lockState = CursorLockMode.Locked;
         CleanBalls();
         CleanEnemy();
+        CleanSpaceShip();
 
         //Les bars de vie et de fuel sont remis � 100%
         HealthBar.fillAmount = 1;
@@ -111,12 +120,14 @@ public class LevelManager : MonoBehaviour,IEventHandler
         Cursor.lockState = CursorLockMode.None;
         CleanBalls();
         CleanEnemy();
+        CleanSpaceShip();
     }
 
     void GameOver(GameOverEvent e)
     {
         CleanBalls();
         CleanEnemy();
+        CleanSpaceShip();
         Destroy(playerGO);
         Cursor.lockState = CursorLockMode.None;
     }
@@ -137,6 +148,11 @@ public class LevelManager : MonoBehaviour,IEventHandler
             GameObject playerGO = Instantiate(m_BonusShootPrefab);
             playerGO.transform.position = m_BonusShootSpawnPos.position;
         }
+    }
+
+    void MainMenuButtonEvent(MainMenuButtonClickedEvent e)
+    {
+        m_StatusPanel.SetActive(false);
     }
 
 }

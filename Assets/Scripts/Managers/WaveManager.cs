@@ -17,7 +17,7 @@ public class WaveManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
-        EventManager.Instance.AddListener<DifficultyPlayButtonClickedEvent>(Level1);
+        EventManager.Instance.AddListener<DifficultyPlayButtonClickedEvent>(LevelDiffuculty);
     }
 
     public void UnsubscribeEvents()
@@ -26,7 +26,7 @@ public class WaveManager : MonoBehaviour, IEventHandler
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
-        EventManager.Instance.RemoveListener<DifficultyPlayButtonClickedEvent>(Level1);
+        EventManager.Instance.RemoveListener<DifficultyPlayButtonClickedEvent>(LevelDiffuculty);
     }
 
 
@@ -83,7 +83,7 @@ public class WaveManager : MonoBehaviour, IEventHandler
         isGamePlay = false;
     }
 
-    void Level1(DifficultyPlayButtonClickedEvent e)
+    void LevelDiffuculty(DifficultyPlayButtonClickedEvent e)
     {
         SpawningPeriod = e.difficultySpawningPeriod;
     }
