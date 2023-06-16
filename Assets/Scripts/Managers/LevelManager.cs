@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour,IEventHandler
     private int EnemyKilledCounter;
     public Image HealthBar;
     public Image FuelBar;
+    //panel des stat
+    [SerializeField] GameObject m_StatusPanel;
     private GameObject playerGO;
 
     [SerializeField] GameObject m_PlayerPrefab;
@@ -83,6 +85,14 @@ public class LevelManager : MonoBehaviour,IEventHandler
         Cursor.lockState = CursorLockMode.Locked;
         CleanBalls();
         CleanEnemy();
+
+        //Les bars de vie et de fuel sont remis à 100%
+        HealthBar.fillAmount = 1;
+        FuelBar.fillAmount = 1;
+
+        // On affiche le panel des stats
+        m_StatusPanel.SetActive(true);
+
         playerGO = PlayerSpawning();
     }
 

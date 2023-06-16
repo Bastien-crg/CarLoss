@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour, IEventHandler
     [SerializeField] GameObject m_MainMenuPanel;
     [SerializeField] GameObject m_VictoryPanel;
     [SerializeField] GameObject m_GameOverPanel;
+    [SerializeField] GameObject m_CreditsPanel;
 
     List<GameObject> m_Panels;
     void OpenPanel(GameObject panel)
@@ -21,6 +22,7 @@ public class MenuManager : MonoBehaviour, IEventHandler
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+        
     }
 
     public void UnsubscribeEvents()
@@ -53,7 +55,7 @@ public class MenuManager : MonoBehaviour, IEventHandler
     }
 
     void GamePlay(GamePlayEvent e)
-    {
+    {   
         OpenPanel(null);
     }
 
@@ -66,6 +68,7 @@ public class MenuManager : MonoBehaviour, IEventHandler
     {
         OpenPanel(m_GameOverPanel);
     }
+
 
 
     // UI events' callbacks
@@ -81,4 +84,20 @@ public class MenuManager : MonoBehaviour, IEventHandler
     {
         EventManager.Instance.Raise(new MainMenuButtonClickedEvent());
     }
+
+    public void CreditsButtonHasBeenClicked()
+    {
+        //Ouverture du panel des crédits
+        OpenPanel(m_CreditsPanel);
+        
+        m_CreditsPanel.SetActive(true);
+        
+    }
+
+    public void RetourButtonHasBeenClicked() {
+        // On revient au main menu
+        m_CreditsPanel.SetActive(false);
+        OpenPanel(m_MainMenuPanel);
+    }
+
 }
