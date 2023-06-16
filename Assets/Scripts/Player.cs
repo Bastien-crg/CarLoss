@@ -123,7 +123,6 @@ public class Player : MonoBehaviour,IEventHandler
     public void UnsubscribeEvents()
     {
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
-
         EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
         EventManager.Instance.RemoveListener<ShootBonusTriggerEvent>(ShootBonusTrigger);
