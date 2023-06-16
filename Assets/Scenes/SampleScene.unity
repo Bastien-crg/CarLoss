@@ -96594,7 +96594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Difficulty 1
+  m_text: Difficulty 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -126805,8 +126805,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSounds:
-  - name: Theme
+  - name: MainTheme
     clip: {fileID: 8300000, guid: d0029bb32459d6249a9b34fc41969c8e, type: 3}
+  - name: MenuTheme
+    clip: {fileID: 8300000, guid: 60e6293376a85c64aa2f88fd7d4cca06, type: 3}
   sfxSounds:
   - name: Shoot
     clip: {fileID: 8300000, guid: ec0f5e38e06158f48b998d9d170e8b77, type: 3}
