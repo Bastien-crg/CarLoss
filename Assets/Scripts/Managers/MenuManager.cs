@@ -10,6 +10,9 @@ public class MenuManager : MonoBehaviour, IEventHandler
     [SerializeField] GameObject m_GameOverPanel;
     [SerializeField] GameObject m_CreditsPanel;
 
+    public float m_Difficulty1SpawnPeriod;
+    public float m_Difficulty2SpawnPeriod;
+    
     List<GameObject> m_Panels;
     void OpenPanel(GameObject panel)
     {
@@ -74,6 +77,16 @@ public class MenuManager : MonoBehaviour, IEventHandler
     // UI events' callbacks
     public void PlayButtonHasBeenClicked()
     {
+        EventManager.Instance.Raise(new PlayButtonClickedEvent());
+    }
+    public void Difficulty1PlayButtonHasBeenClicked()
+    {
+        EventManager.Instance.Raise(new DifficultyPlayButtonClickedEvent() { difficultySpawningPeriod = m_Difficulty1SpawnPeriod });
+        EventManager.Instance.Raise(new PlayButtonClickedEvent());
+    }
+    public void Difficulty2PlayButtonHasBeenClicked()
+    {
+        EventManager.Instance.Raise(new DifficultyPlayButtonClickedEvent() { difficultySpawningPeriod = m_Difficulty2SpawnPeriod });
         EventManager.Instance.Raise(new PlayButtonClickedEvent());
     }
     public void ReplayButtonHasBeenClicked()
