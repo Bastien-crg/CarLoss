@@ -4871,7 +4871,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2694
+  m_RootOrder: 2693
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &80296186
 GameObject:
@@ -8017,7 +8017,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2699
+  m_RootOrder: 2698
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &137235078
 AudioListener:
@@ -41290,7 +41290,7 @@ Transform:
   - {fileID: 1669524257}
   - {fileID: 1978990032}
   m_Father: {fileID: 0}
-  m_RootOrder: 2697
+  m_RootOrder: 2696
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700686637
 GameObject:
@@ -48712,7 +48712,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2698
+  m_RootOrder: 2697
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &839313546
 GameObject:
@@ -70307,7 +70307,7 @@ Transform:
   - {fileID: 298141335}
   - {fileID: 1060331940}
   m_Father: {fileID: 0}
-  m_RootOrder: 2696
+  m_RootOrder: 2695
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1216966626
 GameObject:
@@ -82344,7 +82344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094046, guid: 965d3d751a990b340b1546bdd64efc8e, type: 3}
       propertyPath: m_RootOrder
-      value: 2700
+      value: 2699
       objectReference: {fileID: 0}
     - target: {fileID: 1111025973889094046, guid: 965d3d751a990b340b1546bdd64efc8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -90199,67 +90199,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1549120249
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6606120835548622663, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_Mass
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7362441950534125257, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_Name
-      value: Starship
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_RootOrder
-      value: 2692
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 81.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7883398722270600307, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
 --- !u!1 &1550258348
 GameObject:
   m_ObjectHideFlags: 3
@@ -97264,7 +97203,7 @@ Transform:
   - {fileID: 59370435}
   - {fileID: 93044385}
   m_Father: {fileID: 0}
-  m_RootOrder: 2695
+  m_RootOrder: 2694
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1678844194
 GameObject:
@@ -103982,6 +103921,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1646
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1786667233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1786667234}
+  m_Layer: 0
+  m_Name: SpaceShipSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1786667234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786667233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2700
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1786961576
 GameObject:
   m_ObjectHideFlags: 3
@@ -106460,7 +106430,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2693
+  m_RootOrder: 2692
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1823168866
 GameObject:
@@ -115806,6 +115776,8 @@ MonoBehaviour:
   m_PlayerSpawnPos: {fileID: 1715255863}
   m_BonusShootPrefab: {fileID: 5476393340010740191, guid: a1fbda6f12b247b4f91583c2d879a158, type: 3}
   m_BonusShootSpawnPos: {fileID: 832320406}
+  m_SpaceShipPrefab: {fileID: 7362441950534125257, guid: 3e2e5a148605a594b8d20092a6711cb3, type: 3}
+  m_SpaceShipSpawnPos: {fileID: 1786667234}
 --- !u!1 &1985871435
 GameObject:
   m_ObjectHideFlags: 3

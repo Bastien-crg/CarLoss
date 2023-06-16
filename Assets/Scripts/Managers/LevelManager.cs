@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour,IEventHandler
     [SerializeField] Transform m_PlayerSpawnPos;
     [SerializeField] GameObject m_BonusShootPrefab;
     [SerializeField] Transform m_BonusShootSpawnPos;
+    [SerializeField] GameObject m_SpaceShipPrefab;
+    [SerializeField] Transform m_SpaceShipSpawnPos;
 
     public void SubscribeEvents()
     {
@@ -71,6 +73,12 @@ public class LevelManager : MonoBehaviour,IEventHandler
         return playerGO;
     }
 
+    void SpaceShipSpawning()
+    {
+        GameObject playerGO = Instantiate(m_SpaceShipPrefab);
+        playerGO.transform.position = m_SpaceShipSpawnPos.position;
+    }
+
     // GameManager events' callbacks
     void GameMenu(GameMenuEvent e)
     {
@@ -83,6 +91,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
         Cursor.lockState = CursorLockMode.Locked;
         CleanBalls();
         CleanEnemy();
+        SpaceShipSpawning();
         playerGO = PlayerSpawning();
     }
 
