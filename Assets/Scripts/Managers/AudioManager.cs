@@ -36,7 +36,6 @@ public class AudioManager : MonoBehaviour, IEventHandler
         if(Instance==null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
