@@ -18,19 +18,10 @@ public class Enemy : MonoBehaviour, IDestroyable
     public Vector3 player_position;
 
 
-    void Awake()
-    {
-
-    
-
-    }
-
-
     // Update is called once per frame
     void Update()
     {
         agent.SetDestination(player_position);
-
         // mise à jour de bar de vie
         helthBar.value = Health;
 
@@ -64,7 +55,6 @@ public class Enemy : MonoBehaviour, IDestroyable
     {
         EventManager.Instance.Raise(new EnemyHasBeenKillEvent());
         Destroy(gameObject);
-        //throw new System.NotImplementedException();
     }
 
     public void Damage(int damage)
@@ -74,6 +64,5 @@ public class Enemy : MonoBehaviour, IDestroyable
         {
             Kill();
         }
-        //throw new System.NotImplementedException();
     }
 }

@@ -30,14 +30,14 @@ public class Player : MonoBehaviour,IEventHandler
 
     Rigidbody m_Rigidbody;
 
-    Vector3 m_InitPosition;
-    Quaternion m_InitOrientation;
-
     private float hInput;
     private float vInput;
 
     private Vector3 moveDirection;
     public Transform cameraOrientation;
+
+
+    private bool isGamePlay;
 
     // ground
     public float playerHeight;
@@ -73,20 +73,10 @@ public class Player : MonoBehaviour,IEventHandler
     public void setFuelhBar(Image img)
     {
         helthbarJetpack = img;
-
-    }
-
-    void InitPositionAndOrientation()
-    {
-        transform.position = m_InitPosition;
-        transform.rotation = m_InitOrientation;
-        m_Rigidbody.velocity = Vector3.zero;
-        m_Rigidbody.angularVelocity = Vector3.zero;
     }
 
     void Start()
     {
-        
         ShootingPeriod = m_BasicShootingPeriod;
     }
 
@@ -115,6 +105,7 @@ public class Player : MonoBehaviour,IEventHandler
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
+        EventManager.Instance.AddListener<GameOverEvent>(GameOver);
         EventManager.Instance.AddListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.AddListener<JetPackTriggerEvent>(JetPackTrigger);
         EventManager.Instance.AddListener<ShootBonusTriggerEvent>(ShootBonusTrigger);
@@ -123,6 +114,7 @@ public class Player : MonoBehaviour,IEventHandler
     public void UnsubscribeEvents()
     {
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
+        EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
         EventManager.Instance.RemoveListener<PotionTriggerEvent>(PotionTrigger);
         EventManager.Instance.RemoveListener<JetPackTriggerEvent>(JetPackTrigger);
         EventManager.Instance.RemoveListener<ShootBonusTriggerEvent>(ShootBonusTrigger);
@@ -142,9 +134,6 @@ public class Player : MonoBehaviour,IEventHandler
         m_Rigidbody = GetComponent<Rigidbody>();
         m_TimeNextShot = Time.time;
 
-        m_InitPosition = transform.position;
-        m_InitOrientation = transform.rotation;
-
         //la vie du joueur
         currentHealth = maxHealth;
 
@@ -152,18 +141,18 @@ public class Player : MonoBehaviour,IEventHandler
         currentFuel = m_maxFuel;
 
         nextDamage = Time.time;
+
+        isGamePlay = true;
     }
 
 
     GameObject ShootBall()
     {
-
         EventManager.Instance.Raise(new PlayerHasShootEvent());
         GameObject newBallGO = Instantiate(m_BallPrefab);
         newBallGO.transform.position = m_BallSpawnPos.position;
         newBallGO.transform.rotation = m_BallSpawnPos.rotation;
-        newBallGO.GetComponent<Rigidbody>().velocity =
-                     m_BallSpawnPos.forward * m_BallInitSpeed;
+        newBallGO.GetComponent<Rigidbody>().velocity = m_BallSpawnPos.forward * m_BallInitSpeed;
         return newBallGO;
     }
 
@@ -199,8 +188,7 @@ public class Player : MonoBehaviour,IEventHandler
 
     private void FixedUpdate()
     {
-        if (!GameManager.Instance.IsPlaying) return; // HACK
-                                                     // je n'utilise pas l'architecture événementielle car je suis flemmard
+        if (!isGamePlay) return;                     
 
         if (isOnTheGrounded)
         {
@@ -230,7 +218,12 @@ public class Player : MonoBehaviour,IEventHandler
     // GameManager events' callbacks
     void GamePlay(GamePlayEvent e)
     {
-        //InitPositionAndOrientation();
+        isGamePlay = true;
+    }
+
+    void GameOver(GameOverEvent e)
+    {
+        isGamePlay = false;
     }
 
     private void Jump()

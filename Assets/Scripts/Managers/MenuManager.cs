@@ -51,13 +51,14 @@ public class MenuManager : MonoBehaviour, IEventHandler
 
     private void Awake()
     {
+        FalsePlayer = Instantiate(m_FalsePlayerPrefab);
         m_Panels = new List<GameObject>(
             new GameObject[] { m_MainMenuPanel, m_VictoryPanel, m_GameOverPanel });
     }
 
     void Start()
     {
-        FalsePlayer = Instantiate(m_FalsePlayerPrefab);
+        
         FalsePlayer.transform.position = m_FalsePlayerSpawnPos.position;
         FalsePlayer.transform.rotation = m_FalsePlayerSpawnPos.rotation;
 
@@ -65,7 +66,7 @@ public class MenuManager : MonoBehaviour, IEventHandler
 
     void SpawnFalsePlayer()
     {
-        
+        FalsePlayer.SetActive(true);
     }
 
     void CleanFalsePlayer()
@@ -76,8 +77,9 @@ public class MenuManager : MonoBehaviour, IEventHandler
     // GameManager events' callbacks
     void GameMenu(GameMenuEvent e)
     {
-        SpawnFalsePlayer();
+        
         OpenPanel(m_MainMenuPanel);
+        SpawnFalsePlayer();
     }
 
     void GamePlay(GamePlayEvent e)

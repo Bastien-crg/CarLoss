@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusPotion : MonoBehaviour,IDestroyable
+public class BonusPotion : MonoBehaviour,IBonus
 {
     public float m_life;
     private void OnTriggerEnter(Collider other)
@@ -18,10 +18,5 @@ public class BonusPotion : MonoBehaviour,IDestroyable
     public void Kill()
     {
         gameObject.SetActive(false);
-    }
-
-    public void Damage(int damage)
-    {
-        throw new System.NotImplementedException();
     }
 }

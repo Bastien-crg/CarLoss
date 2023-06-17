@@ -10,17 +10,6 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
     [SerializeField] Transform m_SpawnerSpawnPos;
     
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void OnEnable()
     {
@@ -34,6 +23,7 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<SpawnEnemyEvent>(SpawnEnemy);
+
     }
 
     public void UnsubscribeEvents()
@@ -44,6 +34,7 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
 
     void SpawnEnemy(SpawnEnemyEvent e)
     {
+        
         StartCoroutine(SpawningCoroutine(e.eNumberOfEnemy));
     }
 
@@ -53,7 +44,6 @@ public class EnemySpawner : MonoBehaviour, IEventHandler
         {
             GameObject newEnemyGO = Instantiate(m_EnemyPrefab);
             newEnemyGO.transform.position = m_SpawnerSpawnPos.position;
-            Debug.Log(newEnemyGO.transform.position);
             yield return new WaitForSeconds(1.0f);
         }
 

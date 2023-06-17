@@ -64,6 +64,13 @@ public class LevelManager : MonoBehaviour,IEventHandler
         GameObject.FindObjectsOfType<Ball>().ToList().ForEach(item => Destroy(item.gameObject));
     }
 
+    void CleanBonus()
+    {
+        GameObject.FindObjectsOfType<BonusShoot>().ToList().ForEach(item => Destroy(item.gameObject));
+        GameObject.FindObjectsOfType<BonusPotion>().ToList().ForEach(item => Destroy(item.gameObject));
+        GameObject.FindObjectsOfType<BonusJetPack>().ToList().ForEach(item => Destroy(item.gameObject));
+    }
+
     void CleanEnemy()
     {
         GameObject.FindObjectsOfType<Enemy>().ToList().ForEach(item => Destroy(item.gameObject));
@@ -93,6 +100,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     // GameManager events' callbacks
     void GameMenu(GameMenuEvent e)
     {
+        CleanBonus();
         CleanBalls();
         CleanEnemy();
         CleanSpaceShip();
@@ -120,6 +128,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     void GameVictory(GameVictoryEvent e)
     {
         Cursor.lockState = CursorLockMode.None;
+        CleanBonus();
         CleanBalls();
         CleanEnemy();
         CleanSpaceShip();
@@ -127,6 +136,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
 
     void GameOver(GameOverEvent e)
     {
+        CleanBonus();
         CleanBalls();
         CleanEnemy();
         CleanSpaceShip();
