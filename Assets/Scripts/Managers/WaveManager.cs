@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager : MonoBehaviour, IEventHandler
 {
     bool isGamePlay;
     float TimeNextSpawn;
@@ -17,6 +17,7 @@ public class WaveManager : MonoBehaviour
         EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.AddListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+        EventManager.Instance.AddListener<DifficultyPlayButtonClickedEvent>(LevelDiffuculty);
     }
 
     public void UnsubscribeEvents()
@@ -25,6 +26,7 @@ public class WaveManager : MonoBehaviour
         EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
         EventManager.Instance.RemoveListener<GameVictoryEvent>(GameVictory);
         EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
+        EventManager.Instance.RemoveListener<DifficultyPlayButtonClickedEvent>(LevelDiffuculty);
     }
 
 
@@ -79,5 +81,10 @@ public class WaveManager : MonoBehaviour
     void GameOver(GameOverEvent e)
     {
         isGamePlay = false;
+    }
+
+    void LevelDiffuculty(DifficultyPlayButtonClickedEvent e)
+    {
+        SpawningPeriod = e.difficultySpawningPeriod;
     }
 }

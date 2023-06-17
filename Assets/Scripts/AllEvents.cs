@@ -49,6 +49,10 @@ public class MainMenuButtonClickedEvent : SDD.Events.Event
 public class NextLevelButtonClickedEvent : SDD.Events.Event
 {
 }
+public class DifficultyPlayButtonClickedEvent : SDD.Events.Event
+{
+	public float difficultySpawningPeriod { get; set; }
+}
 #endregion
 
 #region Player Event

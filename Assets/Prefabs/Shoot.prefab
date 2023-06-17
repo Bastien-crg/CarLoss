@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 8216163768690205431}
   - component: {fileID: 8420991866728114553}
   - component: {fileID: 3643055264840389344}
+  - component: {fileID: 5121877184389773961}
   m_Layer: 7
   m_Name: Shoot
   m_TagString: Untagged
@@ -130,7 +131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5476393340010740191}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.079, y: 1, z: 0.32}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50503, y: 0.50503, z: 0.14093871}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -162,10 +163,10 @@ SphereCollider:
   m_GameObject: {fileID: 5476393340010740191}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.15
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!54 &3643055264840389344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -182,3 +183,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &5121877184389773961
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5476393340010740191}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.08
+  m_Height: 2.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1}

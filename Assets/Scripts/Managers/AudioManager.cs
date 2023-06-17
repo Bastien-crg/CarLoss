@@ -14,11 +14,17 @@ public class AudioManager : MonoBehaviour, IEventHandler
     public void SubscribeEvents()
     {
         EventManager.Instance.AddListener<PlayerHasShootEvent>(PlayerHasShoot);
+        EventManager.Instance.AddListener<GamePlayEvent>(GamePlay);
+        EventManager.Instance.AddListener<GameOverEvent>(GameOver);
+
     }
 
     public void UnsubscribeEvents()
     {
         EventManager.Instance.RemoveListener<PlayerHasShootEvent>(PlayerHasShoot);
+        EventManager.Instance.RemoveListener<GamePlayEvent>(GamePlay);
+        EventManager.Instance.RemoveListener<GameOverEvent>(GameOver);
+
     }
 
     void OnEnable()
@@ -36,7 +42,6 @@ public class AudioManager : MonoBehaviour, IEventHandler
         if(Instance==null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -46,7 +51,7 @@ public class AudioManager : MonoBehaviour, IEventHandler
 
     private void Start()
     {
-        PlayMusic("Theme");
+        PlayMusic("MenuTheme");
     }
 
     public void PlayMusic(string name)
@@ -84,5 +89,17 @@ public class AudioManager : MonoBehaviour, IEventHandler
     public void PlayerHasShoot(PlayerHasShootEvent e)
     {
         PlaySFX("Shoot");
+    }
+
+    public void GamePlay(GamePlayEvent e)
+    {
+        musicSource.Stop();
+        PlayMusic("MainTheme");
+    }
+
+    void GameOver(GameOverEvent e)
+    {
+        musicSource.Stop();
+        PlayMusic("MenuTheme");
     }
 }

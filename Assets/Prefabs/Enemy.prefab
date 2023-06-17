@@ -583,6 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4631316377328100773}
+  - component: {fileID: 461258581695479115}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -605,6 +606,19 @@ Transform:
   m_Father: {fileID: 2381705817342412013}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &461258581695479115
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2990624829346574094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18
+  m_Center: {x: -0.05, y: 0, z: 0}
 --- !u!1 &3049820434344862519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,10 +1717,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.86
+  m_Radius: 0.4
+  m_Height: 1.55
   m_Direction: 1
-  m_Center: {x: 0, y: 0.96, z: 0}
+  m_Center: {x: 0, y: 0.77, z: 0}
 --- !u!54 &-4861503717041350755
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1718,10 +1732,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 2
 --- !u!195 &6211508169905257734
 NavMeshAgent:
@@ -1754,10 +1768,10 @@ SphereCollider:
   m_GameObject: {fileID: 6615800077717987880}
   m_Material: {fileID: 13400000, guid: 0a37848a8b366469fb4387932fa30692, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.51
-  m_Center: {x: 0, y: 1.41, z: 0}
+  m_Radius: 0.15
+  m_Center: {x: 0, y: 1.66, z: 0.026140809}
 --- !u!1 &6953542944260074180
 GameObject:
   m_ObjectHideFlags: 0
