@@ -15,7 +15,7 @@ public class Starship : MonoBehaviour
 
     IEnumerator WaitBeforeLiftOff()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         Vector3 endPos = transform.position;
         endPos.y = 10000;
         yield return StartCoroutine(TranslationCoroutine(transform, transform.position, endPos, translationSpeed, EasingFunctions.InQuad));

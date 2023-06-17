@@ -155,7 +155,7 @@ public class LevelManager : MonoBehaviour,IEventHandler
     void EnemyHasBeenKill(EnemyHasBeenKillEvent e)
     {
         EnemyKilledCounter++;
-        if (EnemyKilledCounter % 2 == 0)
+        if (EnemyKilledCounter % 20 == 0)
         {
             int rand = Random.Range(0, 3);
             if (rand == 0)
