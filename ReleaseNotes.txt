@@ -1,0 +1,99 @@
+
+INSTRUCTIONS DU JEU
+Notre jeu est un jeu de survie qui prend place sur la Lune. La gravité y est donc différente de la Terre. La constante gravitationelle est celle de la Lune. 
+Les sauts et déplacements du joueur sont impactés. Il est impossible de se déplacer dans les airs, a l'expection du déplacement grace du Jetpack. 
+En effet le Player dispose d'un Jetpack avec une quantité de fuel limitée. Il est possible de voler dans les airs grâce à celui-ci, mais aussi de se rediriger en l'activant et en se déplaçant vers la direction souhaitée.
+Le HighScore est sauvegardé et afficher tout le long des parties. Il n'existe pas de conditions de victoire, le but est de faire le meilleur score possible. Lorsque la vie de joueur tombe a 0 alors il perd la partie. 
+Le temps de jeu n'impacte pas le score.
+Afin de gagner du score le joueur doit tuer les ennemies qui lui courent dessus. Une balle dans la tête le one-shot, une balle dans le corps baisse sa vie. 
+
+Controle:
+Touche de déplacement
+Haut : z
+Bas : s
+Gauche : q
+Droite : d
+Sprint : Left Shit
+Jump : Space
+JetPack : Space
+Gestion de la Caméra : Sourie
+Tir : Click Gauche
+
+REMARQUE:
+
+limitations:
+Lorsque la partie s'éternise, de nombreux ennemis spawn pouvant provoquer certains lags.
+
+Bugs:
+L'interieur du Mesh 3D du player est parfois visible
+
+Voies d'amélioration:
+Par manque de temps nous n'avons pas pu aller au bout de nos envies. Nous aurions voulu rajouter une mécanique avec la fusée qui atterrit sur le terrain. 
+Celle-ci  déposerait des bonus et tuerait tout ce qui se situe sous elle lorsqu'elle se pose. 
+Une voie d'amélioration possible est aussi d'ajouter un menu de pause, ainsi qu'une condition de victoire débloquant des maps supplémentaire.
+
+
+REPARTITION DES TACHES:
+
+Lors de ce projet, chacun d'entre nous a, à la fois eu le role des Gameplay programmer ainsi que de Game designer.
+Bastien c'est concentré sur:
+l'architecture globale du projet
+le NavMesh
+le sol de jeu 
+la gestion de la caméra
+système de combat (coté joueur)
+systéme de vague d'ennemis
+fusée
+
+Célian:
+système de combat coté ennemis
+HUD du gameplay (affichage du score, vie, jetpack)
+Planète dans le ciel
+Panel de crédit
+
+Yann:
+Animation
+Potion
+Jetpack
+Déplacement de base
+Graphisme du jeu , direction artistique
+Mode de difficulté
+Panel de départ
+Musique et SFX
+Sauvegarde du HighScore
+
+
+
+ORIGINE ASSESTS
+Bonus:
+Link: https://assetstore.unity.com/packages/3d/props/potions-coin-and-box-of-pandora-pack-71778
+Cost: Free
+License: Extension Asset / Standard Unity Asset Store EULA
+Sword:
+Link : https://assetstore.unity.com/packages/3d/props/weapons/lowpoly-cyber-ninja-sword-129464
+Cost: Free
+License: Extension Asset / Standard Unity Asset Store EULA
+Robot:
+Link : https://assetstore.unity.com/packages/tools/particles-effects/volumetric-lines-29160
+Cost: Free
+License: Extension Asset / Standard Unity Asset Store EULA
+
+Gun:
+Link : https://assetstore.unity.com/packages/3d/sci-fi-gun-30826
+Cost: Free
+License: Extension Asset / Standard Unity Asset Store EULA
+
+lunar landscape
+link: https://assetstore.unity.com/packages/3d/environments/landscapes/lunar-landscape-3d-132614
+Cost: Free
+License: Extension Asset / Standard Unity Asset Store EULA
+
+Animation:
+Link: https://www.mixamo.com/#/
+Cost: Free
+License: Usage libre pour but non lucratif
+
+Music des menu:
+Link : https://nordwise.com/82_eurasia.html
+Cost: Free
+License: Free of usage
